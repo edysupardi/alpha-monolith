@@ -1221,10 +1221,10 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
 
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;
@@ -3662,7 +3662,7 @@ input[switch=dark]:checked + label:before {
   padding: 0;
 }
 
-/* 
+/*
 Datatable
 */
 div.dataTables_wrapper div.dataTables_filter {
@@ -4056,7 +4056,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   border-radius: 50%;
 }
 .auth-full-bg .bg-overlay {
-  background: url("../images/bg-auth-overlay.png");
+  background: url("../images/bg-auth-overlay.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
