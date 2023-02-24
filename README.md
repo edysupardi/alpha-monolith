@@ -76,3 +76,5 @@ For more information about sail, you can read this [documentation](https://larav
 sail alias you can use this code `alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'` and use can use sail as this `sail php -v`
 
 To runnning composer when after first clonning this project, you can use this code `docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/opt -w /opt laravelsail/php81-composer:latest composer install --ignore-platform-reqs` or you u can visit this link for [detail](https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects)
+
+if you have error to connect to mysql like "access denied for user@hostname", just run this code `./vendor/bin/sail down --rmi all -v` to remove all images and volume and then just rerun `sail up`
