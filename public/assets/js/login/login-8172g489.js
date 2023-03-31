@@ -16,8 +16,7 @@ $(function(){
 				if(e.success){
 					window.location = dashboard;
 				}else{
-                    console.log(e)
-					// Swal.fire({icon:"error", title:'Oops', text:e.message});
+					Swal.fire({icon:"error", title:error, text:e.message});
 				}
 			},
 			error: function(a){
