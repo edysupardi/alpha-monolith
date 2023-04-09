@@ -57,8 +57,8 @@
                                         <form class="form-horizontal" method="POST" id="login-form">
                                             @csrf
                                             <div class="mb-3">
-                                                <label for="username" class="form-label">@lang('field.email_or_username')</label>
-                                                <input name="text" type="user_email" class="form-control" id="user_email" placeholder="@lang('field.enter_email_or_username')" autocomplete="email" autofocus>
+                                                <label for="username" class="form-label">@lang('field.enter_email')</label>
+                                                <input name="email" type="email" class="form-control" id="email" placeholder="@lang('field.enter_email')" autocomplete="email" autofocus>
                                             </div>
 
                                             <div class="mb-3">
@@ -105,6 +105,8 @@
             login : "@lang('button.login')",
             loading : "@lang('content.loading')",
             server_error: "@lang('content.server_error')",
+            information: "@lang('content.information')",
+            error: "@lang('content.error')",
         }
     </script>
     <script src="{{ URL::asset('/assets/js/login/login-8172g489.js') }}"></script>

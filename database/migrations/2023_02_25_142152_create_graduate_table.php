@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_reset', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create('graduate', function (Blueprint $table) {
+            $table->uuid('id', 36)->primary()->unique();
+            $table->string('name', 100);
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->softDeletes();
         });
+
     }
 
     /**
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_reset');
+        Schema::dropIfExists('graduate');
     }
 };
