@@ -7,5 +7,5 @@ use LaravelEasyRepository\Repository;
 interface UserRepository extends Repository{
 
     public function getUserById($id);
-    // public function getUserByLogin($username, $password);
+    public function getUserByEmail($username);
 }

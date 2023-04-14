@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\{LoginController};
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('signin',                                                                           [LoginController::class, 'signIn'])->name('signin');
+Route::get('/', function(){
+    return response()->json(['success' => true, 'code' => 200, 'data' => ['time' => time()]]);
+});
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('signout',                                                                      [LoginController::class, 'signOut']);
+
+    Route::prefix('user')->group(function(){
+        Route::get('{user}',                                                                    [UserController::class, 'index']);
+    });
 });

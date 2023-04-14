@@ -7,9 +7,11 @@ use App\Http\Controllers\Auth\{LoginController};
 // Auth::routes();
 
 Route::get('login',                                                                             [LoginController::class, 'index'])->name('login');
-Route::post('signin',                                                                           [LoginController::class, 'signin'])->name('signin');
-Route::get('tes',                                                                           [UserController::class, 'index']);
 
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth_user')->group(function(){
+    // Route::get('/', function(){
+    //     die('index');
+    // })->name('dashboard');
     Route::get('/',                                                                             [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('logout',                                                                        [LoginController::class, 'logout'])->name('logout');
 });

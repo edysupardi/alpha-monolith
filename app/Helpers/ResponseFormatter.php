@@ -11,20 +11,19 @@ class ResponseFormatter
     /**
      * Give success response.
      */
-    public static function success($data = null, $message = 'ok')
+    public static function success($data = null, $message = 'ok', $code = 200)
     {
-        $code = 200;
         $response = [
             'success' => true,
             'message' => $message,
         ];
 
-        if(isset($data['queries'])){
+        if(isset($data['queries']) && config('app.debug') == true){
             $response['queries'] = $data['queries'];
             unset($data['queries']);
         }
 
-        if(is_array($data) || !empty($data)){
+        if((is_array($data) && count($data) > 0) || !empty($data)){
             $response['data'] = $data;
         }
 
@@ -51,7 +50,7 @@ class ResponseFormatter
     public static function datatable($request, $collection = []){
         $draw            = $request->draw ?? null;
         if(!is_array($collection))
-            return $this->error(null, 'data must be array');
+            return self::error(null, 'data must be array');
         $data            = array_key_exists('data', $collection) ? $collection['data'] : [];
         $recordsTotal    = array_key_exists('records_total', $collection) ? $collection['records_total'] : 0;
         $recordsFiltered = array_key_exists('records_filtered', $collection) ? $collection['records_filtered'] : 0;
@@ -77,7 +76,7 @@ class ResponseFormatter
             $response['next_url'] = $nextUrl;
         if(!empty($lastUrl))
             $response['last_url'] = $lastUrl;
-        if(array_key_exists('queries', $collection))
+        if(array_key_exists('queries', $collection) && config('app.debug') == true)
             $response['queries'] = $collection['queries'];
         if(array_key_exists('input', $collection))
             $response['input'] = $collection['input'];

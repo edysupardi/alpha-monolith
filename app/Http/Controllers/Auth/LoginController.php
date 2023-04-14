@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Requests\{SigninRequest};
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function __construct()
+    private $userService;
+    public function __construct(UserService $userService)
     {
         $this->middleware('guest')->except('logout');
+        $this->userService = $userService;
     }
 
     public function index()
@@ -20,19 +22,26 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function signin(SigninRequest $request)
+    public function logout(Request $request)
     {
-        return response()->json(['success' => false, 'message' => 'test']);
+        $this->signOut($request);
+        return redirect()->route('login');
     }
 
-    public function signin_(Request $request)
-    {
-        $request->validate([
-            'email'     => ['required', 'email'],
-            'password'  => ['required']
-        ]);
 
-        // $validator = Validator::make($request, $rules)
-        // $this->request-
+    /**
+     * API Service
+     */
+
+     public function signIn(SigninRequest $request)
+    {
+        $result = $this->userService->signin($request->email, $request->password);
+        return $this->response($result);
+    }
+
+    public function signOut(Request $request)
+    {
+        $result = $this->userService->signout($request);
+        return $this->response($result);
     }
 }

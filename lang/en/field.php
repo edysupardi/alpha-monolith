@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * yang berhubungan dengan field, seperti label, placeholder dsb
+ * dipakai di form
+ */
 return [
     'email'                     => 'Email',
     'enter_email'               => 'Enter Email',
