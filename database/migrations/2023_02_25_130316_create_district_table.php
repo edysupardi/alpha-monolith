@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('district', function (Blueprint $table) {
-            $table->uuid('id', 36)->primary()->unique();
-            $table->uuid('provience_id', 36)->index();
+            $table->increments('id');
+            $table->unsignedInteger('provience_id')->index()->nullable();
             $table->string('name', 255);
             $table->string('code', 6);
             $table->double('latitude', 15, 8)->nullable();
@@ -24,10 +24,6 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
-        });
-
-        Schema::table('district', function (Blueprint $table) {
-            $table->foreign('provience_id')->references(['id'])->on('provience')->onUpdate('CASCADE');
         });
     }
 

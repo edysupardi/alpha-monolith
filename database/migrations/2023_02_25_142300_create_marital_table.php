@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('marital', function (Blueprint $table) {
-            $table->uuid('id', 36)->primary()->unique();
+            $table->increments('id');
             $table->string('name', 100);
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();

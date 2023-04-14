@@ -14,19 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('company', function (Blueprint $table) {
-            $table->uuid('id', 36)->primary()->unique();
+            $table->increments('id');
             $table->string('name', 255);
             $table->string('phone_number', 50);
             $table->text('address');
-            $table->uuid('village_id', 36)->index();
-            $table->uuid('subdistrict_id', 36)->index();
-            $table->uuid('district_id', 36)->index();
-            $table->uuid('provience_id', 36)->index();
+            $table->unsignedInteger('village_id')->index()->nullable();
+            $table->unsignedInteger('subdistrict_id')->index()->nullable();
+            $table->unsignedInteger('district_id')->index()->nullable();
+            $table->unsignedInteger('provience_id')->index()->nullable();
             $table->string('zip_code', 7);
 
-            $table->uuid('created_by', 36)->index()->nullable();
+            $table->unsignedBigInteger('created_by')->index()->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->uuid('updated_by', 36)->index()->nullable();
+            $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
