@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('poly', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('company_id')->index();
+            $table->unsignedInteger('company_id')->index()->nullable();
+            $table->unsignedInteger('branch_id')->index()->nullable();
             $table->string('name', 225);
             $table->unsignedBigInteger('created_by')->nullable()->index();
             $table->timestamp('created_at')->nullable()->useCurrent();

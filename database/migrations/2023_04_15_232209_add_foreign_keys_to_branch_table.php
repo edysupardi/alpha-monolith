@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('company', function (Blueprint $table) {
+        Schema::table('branch', function (Blueprint $table) {
+            $table->foreign('company_id')->references(['id'])->on('company')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('village_id')->references(['id'])->on('village')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('subdistrict_id')->references(['id'])->on('subdistrict')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('district_id')->references(['id'])->on('district')->onUpdate('CASCADE')->onDelete('set null');
@@ -27,7 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('company', function (Blueprint $table) {
+        Schema::table('branch', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('company_id');
             $table->dropConstrainedForeignId('village_id');
             $table->dropConstrainedForeignId('subdistrict_id');
             $table->dropConstrainedForeignId('district_id');

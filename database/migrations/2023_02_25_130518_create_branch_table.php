@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('branch', function (Blueprint $table) {
             $table->increments('id')->index();
-            $table->unsignedInteger('company_id')->index();
+            $table->unsignedInteger('company_id')->index()->nullable();
             $table->string('name', 255);
             $table->string('phone_number', 50);
             $table->text('address');
-            $table->unsignedBigInteger('village_id')->index();
-            $table->unsignedInteger('subdistrict_id')->index();
-            $table->unsignedInteger('district_id')->index();
-            $table->unsignedInteger('provience_id')->index();
+            $table->unsignedBigInteger('village_id')->index()->nullable();
+            $table->unsignedInteger('subdistrict_id')->index()->nullable();
+            $table->unsignedInteger('district_id')->index()->nullable();
+            $table->unsignedInteger('provience_id')->index()->nullable();
             $table->string('zip_code', 7);
             $table->boolean('is_main')->default(false);
 
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->unsignedBigInteger('deleted_by')->index()->nullable();
             $table->softDeletes();
         });
     }
