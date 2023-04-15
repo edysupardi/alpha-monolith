@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('alpha_2', 2)->nullable();
             $table->string('alpha_3', 3)->nullable();
             $table->string('code', 3)->nullable();
-            $table->string('cctld', 10)->nullable();
+            $table->string('cctld', 12)->nullable();
 
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
