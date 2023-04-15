@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('identity_type', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->index();
             $table->string('name', 100);
 
             $table->timestamp('created_at')->nullable()->useCurrent();

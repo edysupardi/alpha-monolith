@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('branch', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->index();
             $table->unsignedInteger('company_id')->index();
             $table->string('name', 255);
             $table->string('phone_number', 50);

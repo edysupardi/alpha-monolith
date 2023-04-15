@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('religion', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->index();
             $table->string('name', 100);
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
