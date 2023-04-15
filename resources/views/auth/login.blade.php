@@ -9,7 +9,7 @@
 <body class="auth-body-bg">
 @endsection
 
-    @section('content')
+@section('content')
 
     <div>
         <div class="container-fluid p-0">
@@ -57,7 +57,7 @@
                                         <form class="form-horizontal" method="POST" id="login-form">
                                             @csrf
                                             <div class="mb-3">
-                                                <label for="username" class="form-label">@lang('field.enter_email')</label>
+                                                <label for="email" class="form-label">@lang('field.enter_email')</label>
                                                 <input name="email" type="email" class="form-control" id="email" placeholder="@lang('field.enter_email')" autocomplete="email" autofocus>
                                             </div>
 
@@ -67,7 +67,7 @@
                                                     <a href="{{ route('password.request') }}" class="text-muted">@lang('content.forgot_password')?</a>
                                                     @endif
                                                 </div>
-                                                <label class="form-label">@lang('field.password')</label>
+                                                <label class="form-label">@lang('field.enter_password')</label>
                                                 <div class="input-group auth-pass-inputgroup" id="password">
                                                     <input type="password" name="password" class="form-control" placeholder="@lang('field.enter_password')" aria-label="Password" aria-describedby="password-addon" autocomplete="password" autofocus>
                                                     <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>

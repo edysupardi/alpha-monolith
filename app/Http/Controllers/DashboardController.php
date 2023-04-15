@@ -12,8 +12,9 @@ class DashboardController extends Controller
         // $session = $request->session();
         // $this->preDie($session);
 
-        $session = Session::get('token');
-        echo $session;
+        // $session = Session::get('token');
+        // echo $session;
         // echo 'dashboard index: <br/> '.$session->token;
+        return view('dashboard.index');
     }
 }

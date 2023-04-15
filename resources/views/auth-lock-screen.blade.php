@@ -43,7 +43,7 @@
                                     <form action="index">
 
                                         <div class="user-thumb text-center mb-4">
-                                            <img src="{{ URL::asset('/assets/images/users/avatar-1.jpg') }}"
+                                            <img src="{{ URL::asset('/assets/images/template/female.jpg') }}"
                                                 class="rounded-circle img-thumbnail avatar-md" alt="thumbnail">
                                             <h5 class="font-size-15 mt-3">Maria Laird</h5>
                                         </div>

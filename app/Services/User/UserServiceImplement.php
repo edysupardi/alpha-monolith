@@ -38,10 +38,12 @@ class UserServiceImplement extends Service implements UserService{
                     $result['message'] = __('auth.failed');
                 }
 
-                $token = $user->createToken('auth_token')->plainTextToken; // create token
+                $token = $user->createToken('auth_token'); // create token
+                $tokenPlain = $token->plainTextToken;
+                $tokenId = $token->accessToken->id;
 
                 $data = [
-                    'access_token'  => $token,
+                    'access_token'  => $tokenPlain,
                     'token_type'    => 'Bearer',
                     'user'          => $user,
                 ];
@@ -53,7 +55,7 @@ class UserServiceImplement extends Service implements UserService{
                     'name'       => $user->name,
                     'branch_id'  => $user->branch_id,
                     'company_id' => $user->company_id,
-                    'token'      => $token,
+                    'token'      => $tokenPlain,
                 ];
                 session($session);
 
@@ -70,8 +72,10 @@ class UserServiceImplement extends Service implements UserService{
 
     function signout($request): array
     {
-        // $token = Session::get('token');
-        // auth('sanctum')->user()->tokens()->delete(); // remove token
+        $userId  = Session::get('id');
+
+        $user = $this->mainRepository->getUserById($userId)->first();
+        $user->tokens()->delete(); // remove token
         $request->session()->flush(); // remove session
         $result = [
             'success'   => true,

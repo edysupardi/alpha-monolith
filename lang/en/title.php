@@ -6,4 +6,7 @@
 
 return [
     'login'     => 'Login',
+    'logout'    => 'Logout',
+    'profile'   => 'Profile',
+    'dashboard' => 'Dashboard',
 ];

@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="author" content="Alpha Medika"/>
         <meta name="description" content="Aplikasi Medis Terintegrasi, Simple, dan Modis"/>
-        <link rel="shortcut icon" href="{{ URL::asset('assets/images/company/alpha.ico')}}">
+        <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.png')}}">
         @include('layouts.head-css')
     </head>
 

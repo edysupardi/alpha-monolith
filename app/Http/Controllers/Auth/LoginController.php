@@ -7,6 +7,7 @@ use App\Http\Requests\{SigninRequest};
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -19,6 +20,9 @@ class LoginController extends Controller
 
     public function index()
     {
+        if (Session::get('id')) {
+            return redirect()->route('dashboard');
+        }
         return view('auth.login');
     }
 
