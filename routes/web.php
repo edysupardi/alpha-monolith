@@ -16,15 +16,15 @@ Route::middleware('auth_user')->group(function(){
 
     // poly
     Route::get('poly',                                                                          [UserController::class, 'index'])->name('poly');
-    Route::get('branch',                                                                          [UserController::class, 'index'])->name('branch');
-    Route::get('company',                                                                          [UserController::class, 'index'])->name('company');
+    Route::get('branch',                                                                        [UserController::class, 'index'])->name('branch');
+    Route::get('company',                                                                       [UserController::class, 'index'])->name('company');
 
     Route::group(['prefix' => 'inpatient'], function(){
-        Route::get('/',                                                                          [UserController::class, 'index'])->name('inpatient');
-        Route::get('report',                                                                          [UserController::class, 'index'])->name('inpatient.report');
+        Route::get('/',                                                                         [UserController::class, 'index'])->name('inpatient');
+        Route::get('report',                                                                    [UserController::class, 'index'])->name('inpatient.report');
     });
     Route::group(['prefix' => 'outpatient'], function(){
-        Route::get('/',                                                                          [UserController::class, 'index'])->name('outpatient');
-        Route::get('report',                                                                          [UserController::class, 'index'])->name('outpatient.report');
+        Route::get('/',                                                                         [UserController::class, 'index'])->name('outpatient');
+        Route::get('report',                                                                    [UserController::class, 'index'])->name('outpatient.report');
     });
 });

@@ -7,7 +7,7 @@
                         <img src="{{ URL::asset('/assets/images/alpha-dark.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('/assets/images/logo-text-dark.png') }}" alt="" height="17">
+                        <img src="{{ URL::asset('/assets/images/alpha-text-dark.png') }}" alt="" height="17">
                     </span>
                 </a>
                 <a href="index" class="logo logo-light">
@@ -15,7 +15,7 @@
                         <img src="{{ URL::asset('/assets/images/alpha-light.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('/assets/images/logo-text-light.png') }}" alt="" height="19">
+                        <img src="{{ URL::asset('/assets/images/alpha-text-light.png') }}" alt="" height="19">
                     </span>
                 </a>
             </div>

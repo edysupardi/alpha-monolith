@@ -24,7 +24,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-lg-7">
                                             <div class="text-center">
-                                                <h4 class="mb-3"><i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span class="text-primary">Alpha</span> Medika</h4>
+                                                <h4 class="mb-3"><i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span class="text-primary">@lang('title.app_name')</span> @lang('title.app_name_prefix')</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -42,9 +42,8 @@
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5">
                                     <a href="javascript:;" class="d-block auth-logo">
-                                        <img src="{{ URL::asset('/assets/images/company/alpha-dark.png') }}" alt="" height="28" class="auth-logo-dark">
-                                        <img src="{{ URL::asset('/assets/images/company/alpha-light.png') }}" alt="" height="28" class="auth-logo-light">
-                                        Alpha
+                                        <img src="{{ URL::asset('/assets/images/alpha-text-dark.png') }}" alt="" height="28" class="auth-logo-dark">
+                                        <img src="{{ URL::asset('/assets/images/alpha-text-light.png') }}" alt="" height="28" class="auth-logo-light">
                                     </a>
                                 </div>
                                 <div class="my-auto">
@@ -82,7 +81,7 @@
                                 </div>
 
                                 <div class="mt-4 mt-md-5 text-center">
-                                    <p class="mb-0">&copy; {{ date('Y') }} Alpha. Crafted with <i class="mdi mdi-heart text-danger"></i></p>
+                                    <p class="mb-0">{{ date('Y') }} &copy; @lang('title.app_name_full'). @lang('title.crafted_with') <i class="mdi mdi-heart text-primary"></i></p>
                                 </div>
                             </div>
 
