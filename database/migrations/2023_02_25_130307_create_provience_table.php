@@ -14,9 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('provience', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->index();
             $table->string('name', 255);
-            $table->string('code', 3);
             $table->double('latitude', 15, 8)->nullable();
             $table->double('longitude', 15, 8)->nullable();
 

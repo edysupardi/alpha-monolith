@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('identity_id')->index()->nullable();
             $table->string('identity_number', 100);
-            $table->unsignedInteger('village_id')->index()->nullable();
+            $table->unsignedBigInteger('village_id')->index()->nullable();
             $table->unsignedInteger('subdistrict_id')->index()->nullable();
             $table->unsignedInteger('district_id')->index()->nullable();
             $table->unsignedInteger('provience_id')->index()->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('ethnic', 50);
             $table->string('phone_number', 50);
             $table->string('mobile_number', 50);
-            $table->unsignedInteger('domicile_village_id')->index()->nullable();
+            $table->unsignedBigInteger('domicile_village_id')->index()->nullable();
             $table->unsignedInteger('domicile_subdistrict_id')->index()->nullable();
             $table->unsignedInteger('domicile_district_id')->index()->nullable();
             $table->unsignedInteger('domicile_provience_id')->index()->nullable();

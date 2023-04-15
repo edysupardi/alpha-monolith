@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('subdistrict', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->index();
             $table->unsignedInteger('district_id')->index()->nullable();
             $table->unsignedInteger('provience_id')->index()->nullable();
             $table->string('name', 255);

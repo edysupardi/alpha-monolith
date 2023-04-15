@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('phone_number', 50);
             $table->text('address');
-            $table->unsignedInteger('village_id')->index();
+            $table->unsignedBigInteger('village_id')->index();
             $table->unsignedInteger('subdistrict_id')->index();
             $table->unsignedInteger('district_id')->index();
             $table->unsignedInteger('provience_id')->index();

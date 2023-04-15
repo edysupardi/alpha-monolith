@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('phone_number', 50);
             $table->text('address');
-            $table->unsignedInteger('village_id')->index()->nullable();
+            $table->unsignedBigInteger('village_id')->index()->nullable();
             $table->unsignedInteger('subdistrict_id')->index()->nullable();
             $table->unsignedInteger('district_id')->index()->nullable();
             $table->unsignedInteger('provience_id')->index()->nullable();
