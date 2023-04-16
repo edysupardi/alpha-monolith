@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{LoginController};
-use App\Http\Controllers\{UserController, ProvienceController, DistrictController};
+use App\Http\Controllers\{UserController, ProvienceController, DistrictController, SubdistrictController};
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +35,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::prefix('district')->name('.district')->group(function(){
             Route::get('all',                                                                   [DistrictController::class, 'all']);
             Route::get('{district}',                                                            [DistrictController::class, 'detail']);
+        });
+        Route::prefix('subdistrict')->name('.subdistrict')->group(function(){
+            Route::get('all',                                                                   [SubdistrictController::class, 'all']);
+            Route::get('{subdistrict}',                                                         [SubdistrictController::class, 'detail']);
         });
     });
 });

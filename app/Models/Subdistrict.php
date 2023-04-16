@@ -16,7 +16,6 @@ class Subdistrict extends BaseModel
         'provience_id',
         'district_id',
         'name',
-        'code',
         'latitude',
         'longitude',
     ];
@@ -27,7 +26,7 @@ class Subdistrict extends BaseModel
         'deleted_at' => 'datetime',
     ];
 
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'latitude', 'longitude'];
 
     /**
      * **************************************************
@@ -59,5 +58,24 @@ class Subdistrict extends BaseModel
     function scopeByDistrict($q, $v = '')
     {
         return $q->where('district_id', $v);
+    }
+
+    public function scopeFindByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', $v);
+    }
+
+    public function scopeLikeByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', 'like', "%{$v}%");
+    }
+
+    public function scopeOrderByName($q, $v = 'asc')
+    {
+        return $q->orderBy('name', $v);
     }
 }
