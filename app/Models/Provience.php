@@ -14,7 +14,6 @@ class Provience extends BaseModel
     protected $table = 'provience';
     protected $fillable = [
         'name',
-        'code',
         'latitude',
         'longitude',
     ];
@@ -26,4 +25,22 @@ class Provience extends BaseModel
     ];
 
     protected $hidden = ['deleted_at'];
+
+    /**
+     *    S C O P E
+     */
+
+    public function scopeFindByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', $v);
+    }
+
+    public function scopeLikeByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', 'like', "%{$v}%");
+    }
 }
