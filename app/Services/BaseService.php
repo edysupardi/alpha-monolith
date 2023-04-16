@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Traits\PrintLog;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\{DB, Log};
 use LaravelEasyRepository\Service as CoreService;
 
 class BaseService extends CoreService
@@ -15,6 +15,15 @@ class BaseService extends CoreService
             DB::enableQueryLog();
         }
     }
+
+    function logError($message){
+		Log::channel('global-error')->error($message);
+	}
+
+	function logInfo($message){
+		Log::channel('global-info')->info($message);
+	}
+
     /**
      * Find an item by id
      * @param mixed $id

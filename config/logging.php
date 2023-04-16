@@ -117,6 +117,22 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'global-error' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/global-error.log'),
+            'level' => 'debug',
+            'days' => 30,
+            'permission' => 0666
+        ],
+
+        'global-info' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/global-info.log'),
+            'level' => 'debug',
+            'days' => 30,
+            'permission' => 0666
+        ],
     ],
 
 ];
