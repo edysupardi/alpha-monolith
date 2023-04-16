@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Helpers\ResponseFormatter;
 use App\Traits\PrintLog;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
@@ -15,13 +16,20 @@ class Controller extends BaseController
 
     private $successCode = [200, 201, 202];
 
+    public function __construct()
+    {
+        if(config('app.debug') == true) {
+            DB::enableQueryLog();
+        }
+    }
+
     public function response($result){
         if(!array_key_exists('code', $result)){
             return ResponseFormatter::error(__('content.attr_code_not_exists'), 404);
         }
         $code       = $result['code'];
         $message    = $result['message'];
-        $data       = null;
+        $data       = [];
 
         if(isset($result['data'])){
             $data = $result['data'];
@@ -30,6 +38,6 @@ class Controller extends BaseController
         if(in_array($code, $this->successCode)){
             return ResponseFormatter::success($data, $message, $code);
         }
-        return ResponseFormatter::error($message, $code);
+        return ResponseFormatter::error($message, $code, $data);
     }
 }

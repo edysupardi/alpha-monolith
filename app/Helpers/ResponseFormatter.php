@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\DB;
+
 /**
  * Format response.
  */
@@ -18,14 +20,14 @@ class ResponseFormatter
             'message' => $message,
         ];
 
-        if(isset($data['queries']) && config('app.debug') == true){
-            $response['queries'] = $data['queries'];
-            unset($data['queries']);
-        }
-
         if((is_array($data) && count($data) > 0) || !empty($data)){
             $response['data'] = $data;
         }
+
+        if(config('app.debug') == true){
+            $response['queries'] = DB::getQueryLog();
+        }
+
 
         return response()->json($response, $code);
     }
@@ -39,8 +41,15 @@ class ResponseFormatter
             'success' => false,
             'message' => $message,
         ];
-        if(!empty($data))
+
+        if(!empty($data)){
             $response['data'] = $data;
+        }
+
+        if(config('app.debug') == true){
+            $response['queries'] = DB::getQueryLog();
+        }
+
         return response()->json($response, $code);
     }
 
