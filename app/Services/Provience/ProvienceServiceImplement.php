@@ -4,11 +4,9 @@ namespace App\Services\Provience;
 
 use App\Repositories\Provience\ProvienceRepository;
 use App\Services\BaseService;
-use App\Traits\PrintLog;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use LaravelEasyRepository\Service;
 
 class ProvienceServiceImplement extends BaseService implements ProvienceService{
 

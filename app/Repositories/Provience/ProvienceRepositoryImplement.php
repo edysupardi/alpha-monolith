@@ -21,6 +21,6 @@ class ProvienceRepositoryImplement extends Eloquent implements ProvienceReposito
 
     public function getAll($search = null)
     {
-        return $this->model->likeByName($search)->get();
+        return $this->model->likeByName($search)->orderByName()->get();
     }
 }

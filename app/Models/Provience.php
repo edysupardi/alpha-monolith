@@ -43,4 +43,9 @@ class Provience extends BaseModel
             return $q;
         return $q->where('name', 'like', "%{$v}%");
     }
+
+    public function scopeOrderByName($q, $v = 'asc')
+    {
+        return $q->orderBy('name', $v);
+    }
 }
