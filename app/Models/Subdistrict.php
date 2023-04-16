@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\{SoftDeletes};
 use App\Traits\{Uuids, Datatable};
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Crypt;
 
 class Subdistrict extends BaseModel
 {
@@ -27,6 +29,26 @@ class Subdistrict extends BaseModel
     ];
 
     protected $hidden = ['deleted_at', 'latitude', 'longitude'];
+
+    /**
+     * **************************************************
+     *    A C C E S S O R   A N D   M U T A T O R
+     * **************************************************
+     */
+
+    protected function provienceId(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Crypt::encrypt($value),
+        );
+    }
+
+    protected function districtId(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Crypt::encrypt($value),
+        );
+    }
 
     /**
      * **************************************************

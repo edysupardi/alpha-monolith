@@ -31,6 +31,12 @@ class Village extends BaseModel
 
     protected $hidden = ['deleted_at', 'latitude', 'longitude'];
 
+    /**
+     * **************************************************
+     *    A C C E S S O R   A N D   M U T A T O R
+     * **************************************************
+     */
+
     protected function provienceId(): Attribute
     {
         return Attribute::make(
