@@ -26,7 +26,7 @@ class SubdistrictSeeder extends Seeder
                     'id' => $d[0],
                     'provience_id' => $d[1],
                     'district_id' => $d[2],
-                    'name' => $d[3],
+                    'name' => strtoupper($d[3]),
                 ];
             }
             $firstline = false;
