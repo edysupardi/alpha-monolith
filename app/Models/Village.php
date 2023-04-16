@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\{SoftDeletes};
 use App\Traits\{Uuids, Datatable};
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Crypt;
 
 class Village extends BaseModel
 {
@@ -17,7 +19,6 @@ class Village extends BaseModel
         'district_id',
         'subdistrict_id',
         'name',
-        'code',
         'latitude',
         'longitude',
     ];
@@ -28,7 +29,28 @@ class Village extends BaseModel
         'deleted_at' => 'datetime',
     ];
 
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'latitude', 'longitude'];
+
+    protected function provienceId(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Crypt::encrypt($value),
+        );
+    }
+
+    protected function districtId(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Crypt::encrypt($value),
+        );
+    }
+
+    protected function subdistrictId(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Crypt::encrypt($value),
+        );
+    }
 
     /**
      * **************************************************
@@ -70,5 +92,24 @@ class Village extends BaseModel
     function scopeBySubdistrict($q, $v = '')
     {
         return $q->where('subdistrict_id', $v);
+    }
+
+    public function scopeFindByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', $v);
+    }
+
+    public function scopeLikeByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', 'like', "%{$v}%");
+    }
+
+    public function scopeOrderByName($q, $v = 'asc')
+    {
+        return $q->orderBy('name', $v);
     }
 }

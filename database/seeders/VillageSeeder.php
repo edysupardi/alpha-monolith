@@ -27,7 +27,7 @@ class VillageSeeder extends Seeder
                     'provience_id' => $d[1],
                     'district_id' => $d[2],
                     'subdistrict_id' => $d[3],
-                    'name' => $d[4],
+                    'name' => strtoupper($d[4]),
                 ];
             }
             $firstline = false;
