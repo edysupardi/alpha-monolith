@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequestProvienceAll;
 use App\Services\Provience\ProvienceService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProvienceController extends Controller
 {
@@ -21,7 +20,7 @@ class ProvienceController extends Controller
         return $this->response($result);
     }
 
-    public function all(Request $request)
+    public function all(RequestProvienceAll $request)
     {
         $result = $this->provienceService->getAll($request);
         return $this->response($result);

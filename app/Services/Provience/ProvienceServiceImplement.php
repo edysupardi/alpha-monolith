@@ -2,10 +2,10 @@
 
 namespace App\Services\Provience;
 
+use App\Http\Requests\RequestProvienceAll;
 use App\Repositories\Provience\ProvienceRepository;
 use App\Services\BaseService;
 use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class ProvienceServiceImplement extends BaseService implements ProvienceService{
@@ -54,7 +54,7 @@ class ProvienceServiceImplement extends BaseService implements ProvienceService{
         return $result;
     }
 
-    public function getAll(Request $request = null) : array
+    public function getAll(RequestProvienceAll $request = null) : array
     {
         $result = [
             'success'   => false,
