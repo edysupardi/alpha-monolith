@@ -49,4 +49,23 @@ class District extends BaseModel
     {
         return $q->where('provience_id', $v);
     }
+
+    public function scopeFindByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', $v);
+    }
+
+    public function scopeLikeByName($q, $v = '')
+    {
+        if(empty($v))
+            return $q;
+        return $q->where('name', 'like', "%{$v}%");
+    }
+
+    public function scopeOrderByName($q, $v = 'asc')
+    {
+        return $q->orderBy('name', $v);
+    }
 }

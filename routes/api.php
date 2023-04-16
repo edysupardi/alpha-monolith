@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{LoginController};
-use App\Http\Controllers\{UserController, ProvienceController};
+use App\Http\Controllers\{UserController, ProvienceController, DistrictController};
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::prefix('provience')->name('.provience')->group(function(){
             Route::get('all',                                                                   [ProvienceController::class, 'all']);
             Route::get('{provience}',                                                           [ProvienceController::class, 'detail']);
+        });
+        Route::prefix('district')->name('.district')->group(function(){
+            Route::get('all',                                                                   [DistrictController::class, 'all']);
+            Route::get('{district}',                                                            [DistrictController::class, 'detail']);
         });
     });
 });
