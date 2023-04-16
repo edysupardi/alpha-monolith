@@ -15,7 +15,6 @@ class District extends BaseModel
     protected $fillable = [
         'provience_id',
         'name',
-        'code',
         'latitude',
         'longitude',
     ];
@@ -26,7 +25,7 @@ class District extends BaseModel
         'deleted_at' => 'datetime',
     ];
 
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'latitude', 'longitude'];
 
     /**
      * **************************************************

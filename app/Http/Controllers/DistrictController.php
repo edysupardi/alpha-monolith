@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestDistrictAll;
 use App\Services\District\DistrictService;
-use Illuminate\Http\Request;
 
 class DistrictController extends Controller
 {
