@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreign('updated_by')->references(['id'])->on('user')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('company_id')->references('id')->on('company')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('branch_id')->references('id')->on('branch')->onUpdate('CASCADE')->onDelete('set null');
+            $table->foreign('deleted_by')->references(['id'])->on('user')->onUpdate('CASCADE')->onDelete('set null');
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
         Schema::table('poly', function (Blueprint $table) {
             $table->dropConstrainedForeignId('created_by');
             $table->dropConstrainedForeignId('updated_by');
+            $table->dropConstrainedForeignId('deleted_by');
             $table->dropConstrainedForeignId('company_id');
             $table->dropConstrainedForeignId('branch_id');
         });

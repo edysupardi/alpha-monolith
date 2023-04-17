@@ -20,13 +20,13 @@ class UserSeeder extends Seeder
                 'id'                  => 1,
                 'company_id'          => 1,
                 'branch_id'           => 1,
-                'name'                => 'Lita',
                 'email'               => 'lita@gmail.com',
                 'email_verified_at'   => NULL,
                 'password'            => Hash::make($pwd),
                 'avatar'              => NULL,
                 'remember_token'      => NULL,
                 'status'              => 1,
+                'personal_id'         => 1,
             ]
         ];
 

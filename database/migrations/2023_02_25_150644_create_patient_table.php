@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->unsignedBigInteger('deleted_by')->index()->nullable();
             $table->softDeletes();
         });
     }

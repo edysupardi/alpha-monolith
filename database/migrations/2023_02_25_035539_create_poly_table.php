@@ -18,10 +18,11 @@ return new class extends Migration
             $table->unsignedInteger('company_id')->index()->nullable();
             $table->unsignedInteger('branch_id')->index()->nullable();
             $table->string('name', 225);
-            $table->unsignedBigInteger('created_by')->nullable()->index();
-            $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->unsignedBigInteger('updated_by')->nullable()->index();
-            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->unsignedBigInteger('created_by')->index()->nullable();
+            $table->timestamp('created_at')->useCurrent()->nullable();
+            $table->unsignedBigInteger('updated_by')->index()->nullable();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent()->nullable();
+            $table->unsignedBigInteger('deleted_by')->index()->nullable();
             $table->softDeletes();
         });
     }

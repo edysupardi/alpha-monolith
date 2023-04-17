@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreign('branch_id')->references('id')->on('branch')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('created_by')->references(['id'])->on('user')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('updated_by')->references(['id'])->on('user')->onUpdate('CASCADE')->onDelete('set null');
+            $table->foreign('deleted_by')->references(['id'])->on('user')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('personal_id')->references(['id'])->on('personal')->onUpdate('CASCADE')->onDelete('set null');
         });
     }
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->dropConstrainedForeignId('branch_id');
             $table->dropConstrainedForeignId('created_by');
             $table->dropConstrainedForeignId('updated_by');
+            $table->dropConstrainedForeignId('deleted_by');
             $table->dropConstrainedForeignId('personal_id');
         });
     }

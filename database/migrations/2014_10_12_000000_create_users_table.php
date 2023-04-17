@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('company_id')->index()->nullable();
             $table->unsignedInteger('branch_id')->index()->nullable();
-            $table->string('name');
+            $table->unsignedBigInteger('personal_id')->index()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->unsignedBigInteger('updated_by')->nullable()->index();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->unsignedBigInteger('deleted_by')->nullable()->index();
             $table->softDeletes();
         });
     }

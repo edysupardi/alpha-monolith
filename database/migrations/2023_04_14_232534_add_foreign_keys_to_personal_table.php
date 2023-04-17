@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('religion_id')->references(['id'])->on('religion')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('graduation_id')->references(['id'])->on('graduate')->onUpdate('CASCADE')->onDelete('set null');
             $table->foreign('marital_status_id')->references(['id'])->on('marital')->onUpdate('CASCADE')->onDelete('set null');
+            $table->foreign('deleted_by')->references(['id'])->on('user')->onUpdate('CASCADE')->onDelete('set null');
         });
     }
 
@@ -53,6 +54,7 @@ return new class extends Migration
             $table->dropConstrainedForeignId('religion_id');
             $table->dropConstrainedForeignId('graduation_id');
             $table->dropConstrainedForeignId('marital_status_id');
+            $table->dropConstrainedForeignId('deleted_by');
         });
     }
 };
