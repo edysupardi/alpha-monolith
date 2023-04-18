@@ -29,7 +29,7 @@ class ResponseFormatter
         }
 
 
-        return response()->json($response, $code);
+        return response()->json($response, $code)->secured();
     }
 
     /**
