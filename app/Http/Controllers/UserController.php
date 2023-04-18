@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Repositories\User\UserRepository;
+use App\Services\User\UserService;
 
 class UserController extends Controller
 {
-    private $userRepository;
-    function __construct(UserRepository $userRepository)
+    private UserService $userService;
+    function __construct(UserService $userService)
     {
-        $this->userRepository = $userRepository;
+        parent::__construct();
+        $this->userService = $userService;
     }
 
     function index($id = '')
     {
-        $result = $this->userRepository->getUserById($id);
-
-        return response()->json($result, 200);
+        $result = $this->userService->getById($id);
+        return $this->response($result);
     }
 }

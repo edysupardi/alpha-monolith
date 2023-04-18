@@ -21,11 +21,11 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
 
     public function getUserById($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with('personal')->where('id', $id)->first();
     }
 
     public function getUserByEmail($email)
     {
-        return $this->model->findByEmail($email)->first();
+        return $this->model->with('personal')->findByEmail($email)->first();
     }
 }

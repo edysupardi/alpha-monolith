@@ -14,7 +14,8 @@ class LoginController extends Controller
     private $userService;
     public function __construct(UserService $userService)
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['logout', 'signOut']);
+        parent::__construct();
         $this->userService = $userService;
     }
 
@@ -28,7 +29,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $this->signOut($request);
+        $signOut = $this->signOut($request);
         return redirect()->route('login');
     }
 

@@ -10,8 +10,6 @@ class BaseService extends CoreService
 {
     use PrintLog;
 
-    protected $mainRepository;
-
     public function __construct()
     {
         if(config('app.debug') == true){
