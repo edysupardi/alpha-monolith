@@ -50,7 +50,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{!! Session::get('avatar') && !empty(Session::get('avatar')) ? asset(Session::get('avatar')) : asset('/assets/images/template/female.jpg') !!}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ucfirst(Session::get('name'))}}</span>
+                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ucfirst(Session::get('simple_name'))}}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">

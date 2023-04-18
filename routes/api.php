@@ -21,7 +21,7 @@ Route::get('/', function(){
 });
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::post('signout',                                                                      [LoginController::class, 'signOut']);
+    Route::post('signout',                                                                      [LoginController::class, 'signOut'])->name('signout');
 
     Route::prefix('user')->group(function(){
         Route::get('{user}',                                                                    [UserController::class, 'index']);
