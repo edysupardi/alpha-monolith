@@ -13,4 +13,8 @@ return [
     'logout'                        => 'Logout',
     'profile'                       => 'Profile',
     'dashboard'                     => 'Dashboard',
+    'company'                       => 'Company',
+
+    'error_404'                     => 'Not Found',
+    'error_500'                     => 'Error 500',
 ];

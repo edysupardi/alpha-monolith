@@ -6,7 +6,7 @@
 return [
     'menu'                      => 'Menu',
     'dashboard'                 => 'Dashboard',
-    'poly'                      => 'Poly',
+    'polyclinic'                => 'Polyclinic',
     'user'                      => 'User',
     'company'                   => 'Company',
     'branch'                    => 'Branch',

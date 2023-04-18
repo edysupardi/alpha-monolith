@@ -9,6 +9,7 @@ return [
     // form
     'loading'                                                                                   => 'loading...',
     'not_found'                                                                                 => 'Data not found',
+    'back_to_dashboard'                                                                         => 'Back to dashboard',
 
     // form auth
     'welcome_back'                                                                              => 'Welcome Back',
@@ -27,4 +28,8 @@ return [
 
     // attribute
     'attr_code_not_exists'                                                                      => 'Attribute code not exists',
+
+    // error
+    'error_404'                                                                                 => 'Page/content not found',
+    'error_500'                                                                                 => 'Server error',
 ];
