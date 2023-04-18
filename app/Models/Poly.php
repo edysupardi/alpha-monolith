@@ -22,5 +22,5 @@ class Poly extends BaseModel
         'deleted_at' => 'datetime',
     ];
 
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 }

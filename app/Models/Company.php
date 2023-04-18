@@ -24,12 +24,4 @@ class Company extends BaseModel
         'updated_by',
         'deleted_by',
     ];
-
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
-    ];
-
-    protected $hidden = ['deleted_at', 'deleted_by'];
 }

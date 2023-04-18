@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Traits\Datatable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Crypt;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\NewAccessToken;
@@ -34,11 +36,13 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'status',
+        'personal_id',
 
         'created_at',
         'created_by',
         'updated_at',
         'updated_by',
+        'deleted_by',
         'deleted_at',
     ];
 
@@ -54,6 +58,7 @@ class User extends Authenticatable
         'created_by',
         'updated_at',
         'updated_by',
+        'deleted_by',
         'deleted_at',
         'status',
         'email_verified_at',
@@ -79,8 +84,18 @@ class User extends Authenticatable
             'abilities' => $abilities,
         ]);
 
-        // return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
         return new NewAccessToken($token, $plainTextToken);
+    }
+
+    /**
+     * **************************************************
+     *    R E L A T I O N S H I P
+     * **************************************************
+     */
+
+    public function personal()
+    {
+        return $this->belongsTo(Personal::class);
     }
 
     /**

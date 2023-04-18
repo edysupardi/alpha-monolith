@@ -21,19 +21,23 @@ class BaseModel extends Model
     protected $hidden = ['deleted_at', 'deleted_by'];
 
     /**
-     *    A C C E S S O R  A N D  M U T A T O R
+     * **************************************************
+     *    A C C E S S O R   A N D   M U T A T O R
+     * **************************************************
      */
 
-    protected function id(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Crypt::encrypt($value),
-            // set: fn (string $value) => Crypt::decrypt($value),
-        );
-    }
+    // protected function id(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn (string $value) => Crypt::encrypt($value),
+    //         // set: fn (string $value) => Crypt::decrypt($value),
+    //     );
+    // }
 
     /**
+     * **************************************************
      *    S C O P E
+     * **************************************************
      */
 
     public function scopeById($q, $id = '')

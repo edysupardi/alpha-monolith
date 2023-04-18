@@ -33,33 +33,6 @@ class Village extends BaseModel
 
     /**
      * **************************************************
-     *    A C C E S S O R   A N D   M U T A T O R
-     * **************************************************
-     */
-
-    protected function provienceId(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Crypt::encrypt($value),
-        );
-    }
-
-    protected function districtId(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Crypt::encrypt($value),
-        );
-    }
-
-    protected function subdistrictId(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Crypt::encrypt($value),
-        );
-    }
-
-    /**
-     * **************************************************
      *    R E L A T I O N S H I P
      * **************************************************
      */
