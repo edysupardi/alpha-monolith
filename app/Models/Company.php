@@ -24,4 +24,32 @@ class Company extends BaseModel
         'updated_by',
         'deleted_by',
     ];
+
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at', 'created_by', 'updated_by', 'deleted_by'];
+
+    /**
+     * **************************************************
+     *    R E L A T I O N S H I P
+     * **************************************************
+     */
+
+    public function village()
+    {
+        return $this->belongsTo(Village::class);
+    }
+
+    public function subdistrict()
+    {
+        return $this->belongsTo(Subdistrict::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function provience()
+    {
+        return $this->belongsTo(Provience::class);
+    }
 }

@@ -5,35 +5,52 @@
  * dipakai di form
  */
 return [
-    'email'                     => 'Email',
-    'enter_email'               => 'Enter Email',
-    'email_or_username'         => 'Email or Username',
-    'enter_email_or_username'   => 'Enter Email or Username',
+    'validation_errors'             => 'validation errors', // don't change / or translate, because as tag
+    'looks_good'                    => 'Looks good!',
 
-    'password'                  => 'Password',
-    'enter_password'            => 'Enter Password',
+    'email'                         => 'Email',
+    'enter_email'                   => 'Enter Email',
+    'email_or_username'             => 'Email or Username',
+    'enter_email_or_username'       => 'Enter Email or Username',
+    'invalid_email'                 => 'Please provide valid email',
 
-    'name'                      => 'Name',
-    'enter_name'                => 'Enter Name',
+    'password'                      => 'Password',
+    'enter_password'                => 'Enter Password',
+    'invalid_password'              => 'Please provide valid password',
 
-    'phone'                     => 'Phone Number',
-    'enter_phone'               => 'Enter Phone Number',
+    'name'                          => 'Name',
+    'enter_name'                    => 'Enter Name',
+    'invalid_name'                  => 'Please enter your name',
 
-    'address'                   => 'Address',
-    'enter_address'             => 'Enter Address',
+    'company'                       => 'Company',
+    'enter_company'                 => 'Enter company name',
+    'invalid_company'               => 'Please enter company name',
 
-    'village'                   => 'Village',
-    'enter_village'             => 'Enter Village',
+    'phone_number'                  => 'Phone Number',
+    'enter_phone_number'            => 'Enter Phone Number',
+    'invalid_phone_number'          => 'Please provide valid phone number',
 
-    'subdistrict'               => 'Subdistrict',
-    'enter_subdistrict'         => 'Enter Subdistrict',
+    'address'                       => 'Address',
+    'enter_address'                 => 'Enter Address',
+    'invalid_address'               => 'Please provide valid address',
 
-    'district'                  => 'District',
-    'enter_district'            => 'Enter District',
+    'village'                       => 'Village',
+    'enter_village'                 => 'Enter Village',
+    'invalid_village'               => 'Please choose a valid village',
 
-    'provience'                 => 'Provience',
-    'enter_provience'           => 'Enter Provience',
+    'subdistrict'                   => 'Subdistrict',
+    'enter_subdistrict'             => 'Enter Subdistrict',
+    'invalid_subdistrict'           => 'Please choose a valid subdistrict',
 
-    'zip_code'                  => 'Zip Code',
-    'enter_zip_code'            => 'Enter Zip Code',
+    'district'                      => 'District',
+    'enter_district'                => 'Enter District',
+    'invalid_district'              => 'Please choose a valid district',
+
+    'provience'                     => 'Provience',
+    'enter_provience'               => 'Enter Provience',
+    'invalid_provience'             => 'Please choose a valid provience',
+
+    'zip_code'                      => 'Zip Code',
+    'enter_zip_code'                => 'Enter Zip Code',
+    'invalid_zip_code'              => 'Please provide valid zip code',
 ];

@@ -1,13 +1,11 @@
-let cls = "is-invalid", clsFeedback = "invalid-feedback"
-function validation(data)
-{
+let cls = "is-invalid", clsValidation = "invalid-validation", clsInvalidFeedback = "invalid-feedback", clsValidFeedback = "valid-feedback"
+function validation(data) {
     if(data != null) {
+        clearFeedback()
         $.each(data, (elId, v) => {
-            let el = $("#" + elId), msg = v[0], elName = $('[name="' + elId + '"]')
+            let el = $("#field-" + elId), msg = v[0], elName = $('[name="' + elId + '"]')
             if(el.length > 0) {
-                el.addClass(cls)
-                let feedback = invalidFeedback(msg)
-                el.after(feedback)
+                invalidFeedback(msg, elId)
 
                 if(elName.length > 0) {
                     $.each(elName, (k, i) => {
@@ -19,13 +17,31 @@ function validation(data)
     }
 }
 
-function invalidFeedback(msg)
+function invalidFeedback(msg, param)
 {
-    return "<span class='" + clsFeedback + "' role='alert'><strong>" + msg + "</strong></span>"
+    let e = "field-" + param + "Feedback", el = $('#' + e);
+    el.html(msg)
+    el.show()
+    document.getElementById("field-" + param).setCustomValidity(msg)
 }
 
 function clearValidation()
 {
-    $("." + clsFeedback).remove()
+    $("." + clsValidation).remove()
     $("." + cls).removeClass(cls)
+}
+
+function clearFeedback()
+{
+    $("." + clsInvalidFeedback).hide()
+    $("." + clsValidFeedback).hide()
+    $('.needs-validation').removeClass('was-validated')
+}
+
+function resetValidity() {
+    clearFeedback()
+    var el = document.getElementsByClassName('form-control');
+    el.forEach(itm => {
+        itm.setCustomValidity('')
+    })
 }

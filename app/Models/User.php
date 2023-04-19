@@ -62,8 +62,6 @@ class User extends Authenticatable
         'deleted_at',
         'status',
         'email_verified_at',
-        'branch_id',
-        'company_id',
     ];
 
     /**

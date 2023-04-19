@@ -34,7 +34,7 @@ class BaseRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(ResponseFormatter::error('validation errors', 400, $validator->errors(),));
+        throw new HttpResponseException(ResponseFormatter::error(__('field.validation_errors'), 400, $validator->errors(),));
     }
 
     // custom message

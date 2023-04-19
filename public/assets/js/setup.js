@@ -7,7 +7,8 @@ $( document ).ajaxSend( (event, request, settings) => {
 $.ajaxSetup({
     headers: {
         'Accept': 'application/json',
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        'Authorization': $('meta[name="token_type"]').attr('content') + ' ' + $('meta[name="token"]').attr('content')
     },
     error: function (xhr, status, error) {
         if(xhr.responseJSON){

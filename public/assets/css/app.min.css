@@ -5006,3 +5006,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
 .jobs-categories a:hover {
   color: #556ee6;
 }
+.form-group.required .control-label:after {
+content:"*";
+color:red;
+}
