@@ -10,9 +10,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('poly') }}" class="waves-effect">
+                    <a href="{{ route('polyclinic') }}" class="waves-effect">
                         <i class="bx bx-briefcase-alt-2"></i>
-                        <span key="t-polys">@lang('menu.poly')</span>
+                        <span key="t-polyclinic">@lang('menu.polyclinic')</span>
                     </a>
                 </li>
                 <li>
@@ -42,12 +42,12 @@
                         <span key="t-company">@lang('menu.company')</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('branch') }}" class="waves-effect">
                         <i class="bx bx-layout"></i>
                         <span key="t-branch">@lang('menu.branch')</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('user') }}" class="waves-effect">
                         <i class="bx bx-user-circle"></i>

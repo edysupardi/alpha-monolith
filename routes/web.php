@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{DashboardController, UserController};
+use App\Http\Controllers\{DashboardController, UserController, CompanyController};
 use App\Http\Controllers\Auth\{LoginController};
 
 Route::get('login',                                                                             [LoginController::class, 'index'])->name('login');
@@ -15,9 +15,9 @@ Route::middleware('auth_user')->group(function(){
     Route::get('user',                                                                          [UserController::class, 'index'])->name('user');
 
     // poly
-    Route::get('poly',                                                                          [UserController::class, 'index'])->name('poly');
+    Route::get('polyclinic',                                                                    [UserController::class, 'index'])->name('polyclinic');
     Route::get('branch',                                                                        [UserController::class, 'index'])->name('branch');
-    Route::get('company',                                                                       [UserController::class, 'index'])->name('company');
+    Route::get('company',                                                                       [CompanyController::class, 'index'])->name('company');
 
     Route::group(['prefix' => 'inpatient'], function(){
         Route::get('/',                                                                         [UserController::class, 'index'])->name('inpatient');

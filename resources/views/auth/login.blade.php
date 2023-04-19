@@ -53,11 +53,12 @@
                                     </div>
 
                                     <div class="mt-4">
-                                        <form class="form-horizontal" method="POST" id="login-form">
+                                        <form class="form-horizontal needs-validation" method="POST" id="login-form" novalidate>
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">@lang('field.enter_email')</label>
-                                                <input name="email" type="email" class="form-control" id="email" placeholder="@lang('field.enter_email')" autocomplete="email" autofocus>
+                                                <input name="email" type="text" class="form-control" id="field-email" placeholder="@lang('field.enter_email')">
+                                                <div id="field-emailFeedback" class="invalid-feedback">@lang('field.invalid_email')</div>
                                             </div>
 
                                             <div class="mb-3">
@@ -67,10 +68,11 @@
                                                     @endif
                                                 </div>
                                                 <label class="form-label">@lang('field.enter_password')</label>
-                                                <div class="input-group auth-pass-inputgroup" id="password">
-                                                    <input type="password" name="password" class="form-control" placeholder="@lang('field.enter_password')" aria-label="Password" aria-describedby="password-addon" autocomplete="password" autofocus>
+                                                <div class="input-group auth-pass-inputgroup">
+                                                    <input type="password" id="field-password" name="password" class="form-control" placeholder="@lang('field.enter_password')">
                                                     <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                                 </div>
+                                                <div id="field-passwordFeedback" class="invalid-feedback">@lang('field.invalid_password')</div>
                                             </div>
 
                                             <div class="mt-3 d-grid">
@@ -108,5 +110,5 @@
             error: "@lang('content.error')",
         }
     </script>
-    <script src="{{ URL::asset('/assets/js/login/login-8172g489.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/login/8172g489.js') }}"></script>
 @endsection
