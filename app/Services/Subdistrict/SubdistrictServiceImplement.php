@@ -68,11 +68,19 @@ class SubdistrictServiceImplement extends BaseService implements SubdistrictServ
                 $result['message']  = __('content.not_found');
                 $result['code']     = 404;
             } else {
+                $subdistrict = [];
+                foreach ($data as $v) {
+                    $subdistrict[] = [
+                        'id' => $v->id,
+                        'ref' => $v->id,
+                        'name' => $v->name,
+                    ];
+                }
                 $result = [
                     'success' => true,
                     'code' => 200,
                     'message' => __('content.ok'),
-                    'data' => $data,
+                    'data' => $subdistrict,
                 ];
             }
         } catch (DecryptException $e) {

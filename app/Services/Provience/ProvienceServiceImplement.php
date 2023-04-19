@@ -67,11 +67,19 @@ class ProvienceServiceImplement extends BaseService implements ProvienceService{
                 $result['message']  = __('content.not_found');
                 $result['code']     = 404;
             } else {
+                $provience = [];
+                foreach ($data as $v) {
+                    $provience[] = [
+                        'id' => $v->id,
+                        'ref' => $v->id,
+                        'name' => $v->name,
+                    ];
+                }
                 $result = [
                     'success' => true,
                     'code' => 200,
                     'message' => __('content.ok'),
-                    'data' => $data,
+                    'data' => $provience,
                 ];
             }
         } catch (\Throwable $th) {

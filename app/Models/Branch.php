@@ -19,6 +19,8 @@ class Branch extends BaseModel
         'district_id',
         'provience_id',
         'zip_code',
+        'latitude',
+        'longitude',
 
         'created_by',
         'updated_by',

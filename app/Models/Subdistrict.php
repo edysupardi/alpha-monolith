@@ -28,7 +28,7 @@ class Subdistrict extends BaseModel
         'deleted_at' => 'datetime',
     ];
 
-    protected $hidden = ['deleted_at', 'latitude', 'longitude'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at', 'latitude', 'longitude'];
 
     /**
      * **************************************************

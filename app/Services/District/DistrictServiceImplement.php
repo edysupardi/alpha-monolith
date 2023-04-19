@@ -68,11 +68,19 @@ class DistrictServiceImplement extends BaseService implements DistrictService{
                 $result['message']  = __('content.not_found');
                 $result['code']     = 404;
             } else {
+                $district = [];
+                foreach ($data as $v) {
+                    $district[] = [
+                        'id' => $v->id,
+                        'ref' => $v->id,
+                        'name' => $v->name,
+                    ];
+                }
                 $result = [
                     'success' => true,
                     'code' => 200,
                     'message' => __('content.ok'),
-                    'data' => $data,
+                    'data' => $district,
                 ];
             }
         } catch (DecryptException $e) {

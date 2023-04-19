@@ -68,11 +68,19 @@ class VillageServiceImplement extends Service implements VillageService{
                 $result['message']  = __('content.not_found');
                 $result['code']     = 404;
             } else {
+                $village = [];
+                foreach ($data as $v) {
+                    $village[] = [
+                        'id' => $v->id,
+                        'ref' => $v->id,
+                        'name' => $v->name,
+                    ];
+                }
                 $result = [
                     'success' => true,
                     'code' => 200,
                     'message' => __('content.ok'),
-                    'data' => $data,
+                    'data' => $village,
                 ];
             }
         } catch (DecryptException $e) {
