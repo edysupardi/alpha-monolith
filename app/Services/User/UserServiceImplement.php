@@ -6,7 +6,7 @@ use App\Helpers\Strings;
 use App\Repositories\User\UserRepository;
 use App\Services\BaseService;
 use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Support\Facades\{Crypt, Hash, Session};
+use Illuminate\Support\Facades\{Auth, Crypt, Hash, Session};
 
 class UserServiceImplement extends BaseService implements UserService{
 
@@ -43,9 +43,10 @@ class UserServiceImplement extends BaseService implements UserService{
                 $tokenPlain = $token->plainTextToken;
                 $tokenId = $token->accessToken->id;
 
+                $tokenType = 'Bearer';
                 $data = [
                     'access_token'  => $tokenPlain,
-                    'token_type'    => 'Bearer',
+                    'token_type'    => $tokenType,
                     'user'          => $user->toArray(),
                 ];
                 $data['user']['id'] = Crypt::encrypt($data['user']['id']);
@@ -55,16 +56,20 @@ class UserServiceImplement extends BaseService implements UserService{
                 unset($data['user']['personal']);
 
                 $session = [
-                    'id'         => Crypt::encrypt($user->id),
-                    'avatar'     => $user->avatar,
-                    'email'      => $user->email,
-                    'name'       => $user->name,
-                    'branch_id'  => Crypt::encrypt($user->branch_id),
-                    'company_id' => Crypt::encrypt($user->company_id),
-                    'token'      => $tokenPlain,
-                    'token_id'   => Crypt::encrypt($tokenId),
+                    'id'          => Crypt::encrypt($user->id),
+                    'avatar'      => $user->avatar,
+                    'email'       => $user->email,
+                    'name'        => $user->name,
+                    'simple_name' => $data['user']['simple_name'],
+                    'branch_id'   => Crypt::encrypt($user->branch_id),
+                    'company_id'  => Crypt::encrypt($user->company_id),
+                    'token'       => $tokenPlain,
+                    'token_type'  => $tokenType,
+                    'token_id'    => Crypt::encrypt($tokenId),
                 ];
                 session($session);
+                // Auth::setUser($user);
+                Auth::login($user);
 
                 $result['message']  = __('content.ok');
                 $result['data']     = $data;
@@ -94,6 +99,7 @@ class UserServiceImplement extends BaseService implements UserService{
                 }
             }
             $request->session()->flush(); // remove session
+            Auth::logout();
             $result = [
                 'success'   => true,
                 'code'      => 200,
