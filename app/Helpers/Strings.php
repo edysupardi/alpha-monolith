@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
  */
 class Strings
 {
-    public static function simpleString($val, $medium = false, $useDot = false)
+    public static function simpleString($string, $medium = false, $useDot = false)
     {
         $length = $medium ? 12 : 5;
-        return strlen($val) > 10 ? trim(substr($val, 0, $length)) . ($useDot ? "..." : "") : $val;
+        return strlen($string) > 10 ? trim(substr($string, 0, $length)) . ($useDot ? "..." : "") : $string;
     }
 }

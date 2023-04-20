@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{LoginController};
-use App\Http\Controllers\{CompanyController, UserController, ProvienceController, DistrictController, SubdistrictController, VillageController};
+use App\Http\Controllers\{BranchController, CompanyController, UserController, ProvienceController, DistrictController, SubdistrictController, VillageController};
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,19 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::prefix('update')->name('.update')->group(function(){
             Route::put('mine',                                                                  [CompanyController::class, 'updateMine'])->name('.mine');
             Route::put('{company}',                                                             [CompanyController::class, 'update'])->name('.update');
+        });
+    });
+
+    Route::prefix('branch')->name('branch')->group(function(){
+        Route::prefix('my')->name('.my')->group(function(){
+            Route::get('/',                                                                     [BranchController::class, 'my'])->name('.get');
+            Route::put('/',                                                                     [BranchController::class, 'updateMine'])->name('.update');
+        });
+        Route::get('{copmany}',                                                                 [BranchController::class, 'show'])->name('.detail');
+        Route::post('store',                                                                    [BranchController::class, 'store'])->name('.store');
+        Route::prefix('update')->name('.update')->group(function(){
+            Route::put('mine',                                                                  [BranchController::class, 'updateMine'])->name('.mine');
+            Route::put('{branch}',                                                              [BranchController::class, 'update'])->name('.update');
         });
     });
 

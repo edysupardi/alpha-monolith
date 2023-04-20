@@ -86,6 +86,48 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">@lang('title.branch')</h4>
+            </div>
+            <div class="row">
+                {{-- <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Simple Title</h5>
+                            <p class="card-text">Jl. Tebet Barat I No.5, RT.1/RW.2</p>
+                            <div class="card-footer bg-transparent">
+                                <a href="javascript:;" class="btn btn-link btn-sm btn-success">@lang('button.edit')</a>
+                                <a href="javascript:;" class="btn btn-link btn-sm btn-danger float-end"><span class="text-danger">@lang('button.delete')</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <div class="card-footer bg-transparent row">
+                                <div class="col-md-6 placeholder-glow">
+                                    <span class="placeholder col-5"></span>
+                                </div>
+                                <div class="col-md-6 placeholder-glow">
+                                    <span class="placeholder col-5 float-end"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 @endsection
 

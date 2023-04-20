@@ -14,6 +14,7 @@ return [
     'profile'                       => 'Profile',
     'dashboard'                     => 'Dashboard',
     'company'                       => 'Company',
+    'branch'                        => 'Branch',
 
     'error_404'                     => 'Not Found',
     'error_500'                     => 'Error 500',

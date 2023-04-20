@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('branch', function (Blueprint $table) {
-            $table->double('latitude', 15, 8)->nullable()->default(123.4567);
-            $table->double('longitude', 15, 8)->nullable()->default(123.4567);
+            $table->double('latitude', 15, 8)->nullable()->default(0);
+            $table->double('longitude', 15, 8)->nullable()->default(0);
         });
     }
 

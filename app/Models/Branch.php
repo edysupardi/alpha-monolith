@@ -11,6 +11,7 @@ class Branch extends BaseModel
 
     protected $table = 'branch';
     protected $fillable = [
+        'company_id',
         'name',
         'phone_number',
         'address',
@@ -33,5 +34,42 @@ class Branch extends BaseModel
         'deleted_at' => 'datetime',
     ];
 
-    protected $hidden = ['deleted_at', 'deleted_by'];
+    protected $hidden = ['deleted_at', 'deleted_by', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by',];
+
+    /**
+     * **************************************************
+     *    S C O P E
+     * **************************************************
+     */
+
+    public function scopeFindByCompany($q, $v = '')
+    {
+        return $q->where('company_id', $v);
+    }
+
+    /**
+     * **************************************************
+     *    R E L A T I O N S H I P
+     * **************************************************
+     */
+
+    public function village()
+    {
+        return $this->belongsTo(Village::class);
+    }
+
+    public function subdistrict()
+    {
+        return $this->belongsTo(Subdistrict::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function provience()
+    {
+        return $this->belongsTo(Provience::class);
+    }
 }

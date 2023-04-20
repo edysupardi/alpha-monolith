@@ -17,7 +17,7 @@ class CompanySeeder extends Seeder
             [
                 'id'              => 1,
                 'name'            => 'Sakti Medika',
-                'phone_number'    => '+622123',
+                'phone_number'    => '6221123',
                 'address'         => 'Jl. Tebet Barat I No.5, RT.1/RW.2',
                 'village_id'      => 3174011002,
                 'subdistrict_id'  => 317401,

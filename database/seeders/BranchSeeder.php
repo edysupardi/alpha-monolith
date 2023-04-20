@@ -18,7 +18,7 @@ class BranchSeeder extends Seeder
                 'id'              => 1,
                 'company_id'      => 1,
                 'name'            => 'Utama',
-                'phone_number'    => '+62212345',
+                'phone_number'    => '62212345',
                 'address'         => 'Jl. Tebet Barat I No.5, RT.1/RW.2',
                 'village_id'      => 3174011002,
                 'subdistrict_id'  => 317401,
