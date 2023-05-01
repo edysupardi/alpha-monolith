@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Traits\PrintLog;
-use Illuminate\Support\Facades\{DB, Log};
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\{Crypt, DB, Log};
 use LaravelEasyRepository\Service as CoreService;
 
 class BaseService extends CoreService
@@ -32,7 +33,15 @@ class BaseService extends CoreService
      */
     public function find($id)
     {
-        return $this->mainRepository->find($id);
+        $data = $this->mainRepository->find($id);
+        $found = $data ? true : false;
+        $result = [
+            'success'   => $found,
+            'code'      => $found ? 200 : 404,
+            'message'   => __('content.ok'),
+            'data'      => $data,
+        ];
+        return $result;
     }
 
     /**
@@ -42,7 +51,15 @@ class BaseService extends CoreService
      */
     public function findOrFail($id)
     {
-        return $this->mainRepository->findOrFail($id);
+        $data = $this->mainRepository->findOrFail($id);
+        $found = $data ? true : false;
+        $result = [
+            'success'   => $found,
+            'code'      => $found ? 200 : 404,
+            'message'   => __('content.ok'),
+            'data'      => $data,
+        ];
+        return $result;
     }
 
     /**
@@ -51,7 +68,14 @@ class BaseService extends CoreService
      */
     public function all()
     {
-        return $this->mainRepository->all();
+        $data = $this->mainRepository->all();
+        $result = [
+            'success'   => true,
+            'code'      => 200,
+            'message'   => __('content.ok'),
+            'data'      => $data,
+        ];
+        return $result;
     }
 
     /**
@@ -61,7 +85,22 @@ class BaseService extends CoreService
      */
     public function create($data)
     {
-        $this->mainRepository->create($data);
+        $result = [
+            'success'   => false,
+            'code'      => 400,
+        ];
+        try {
+            $result['success'] = true;
+            $result['code'] = 200;
+            $result['data'] = $this->mainRepository->create($data);
+        }  catch (\Throwable $th) {
+            if(config('app.debug') == true){
+                $result['message'] = $th->getMessage();
+            } else {
+                $result['message'] = __('content.something_error');
+            }
+        }
+        return $result;
     }
 
     /**
@@ -72,7 +111,29 @@ class BaseService extends CoreService
      */
     public function update($id, array $data)
     {
-        $this->mainRepository->update($id, $data);
+        $result = [
+            'success'   => false,
+            'code'      => 400,
+        ];
+        try {
+            $id  = Crypt::decrypt($id);
+            $result['success'] = true;
+            $result['code'] = 200;
+            $result['data'] = $this->mainRepository->update($id, $data);
+        } catch (DecryptException $e) {
+            if(config('app.debug') == true){
+                $result['message'] = $e->getMessage();
+            } else {
+                $result['message'] = __('content.payload_invalid');
+            }
+        } catch (\Throwable $th) {
+            if(config('app.debug') == true){
+                $result['message'] = $th->getMessage();
+            } else {
+                $result['message'] = __('content.something_error');
+            }
+        }
+        return $result;
     }
 
     /**
@@ -82,7 +143,29 @@ class BaseService extends CoreService
      */
     public function delete($id)
     {
-        $this->mainRepository->delete($id);
+        $result = [
+            'success'   => false,
+            'code'      => 400,
+        ];
+        try {
+            $id  = Crypt::decrypt($id);
+            $result['success'] = true;
+            $result['code'] = 200;
+            $result['data'] = $this->mainRepository->delete($id);
+        } catch (DecryptException $e) {
+            if(config('app.debug') == true){
+                $result['message'] = $e->getMessage();
+            } else {
+                $result['message'] = __('content.payload_invalid');
+            }
+        } catch (\Throwable $th) {
+            if(config('app.debug') == true){
+                $result['message'] = $th->getMessage();
+            } else {
+                $result['message'] = __('content.something_error');
+            }
+        }
+        return $result;
     }
 
     /**
@@ -92,6 +175,31 @@ class BaseService extends CoreService
      */
     public function destroy(array $id)
     {
-        $this->mainRepository->destroy($id);
+        $result = [
+            'success'   => false,
+            'code'      => 400,
+        ];
+        try {
+            $decId = [];
+            foreach ($id as $v ) {
+                $decId[] = Crypt::decrypt($v);
+            }
+            $result['success'] = true;
+            $result['code'] = 200;
+            $result['data'] = $this->mainRepository->destroy($decId);
+        } catch (DecryptException $e) {
+            if(config('app.debug') == true){
+                $result['message'] = $e->getMessage();
+            } else {
+                $result['message'] = __('content.payload_invalid');
+            }
+        } catch (\Throwable $th) {
+            if(config('app.debug') == true){
+                $result['message'] = $th->getMessage();
+            } else {
+                $result['message'] = __('content.something_error');
+            }
+        }
+        return $result;
     }
 }
