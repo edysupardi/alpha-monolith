@@ -3,9 +3,9 @@
 namespace App\Services\Company;
 
 use App\Http\Requests\RequestCompany;
-use LaravelEasyRepository\BaseService;
+use App\Services\InterfaceService;
 
-interface CompanyService extends BaseService{
+interface CompanyService extends InterfaceService{
 
     public function getById($encryptId): array;
     public function myCompany(): array;

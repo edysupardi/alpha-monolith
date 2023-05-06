@@ -37,3 +37,19 @@ $(function(){
         });
     });
 })
+
+function loadTooltip()
+{
+    let el = $('[data-bs-toggle="tooltip"]')
+    if(el.length > 0){
+        el.tooltip()
+    }
+}
+
+function binding(str, arrayMap = {})
+{
+    $.each(arrayMap, (k, v) => {
+        str = str.replace(":" + k, v)
+    })
+    return str
+}

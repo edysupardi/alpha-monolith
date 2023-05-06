@@ -49,4 +49,6 @@ return [
     // error
     'error_404'                                                                                 => 'Page/content not found',
     'error_500'                                                                                 => 'Server error',
+
+    'main'                                                                                      => 'Main',
 ];

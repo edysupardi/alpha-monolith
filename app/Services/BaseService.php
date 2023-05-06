@@ -4,10 +4,10 @@ namespace App\Services;
 
 use App\Traits\PrintLog;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\{Crypt, DB, Log};
-use LaravelEasyRepository\Service as CoreService;
 
-class BaseService extends CoreService
+class BaseService implements InterfaceService
 {
     use PrintLog;
 
@@ -29,18 +29,38 @@ class BaseService extends CoreService
     /**
      * Find an item by id
      * @param mixed $id
-     * @return Model|null
+     * @return array
      */
     public function find($id)
     {
-        $data = $this->mainRepository->find($id);
-        $found = $data ? true : false;
         $result = [
-            'success'   => $found,
-            'code'      => $found ? 200 : 404,
-            'message'   => __('content.ok'),
-            'data'      => $data,
+            'success'   => false,
+            'code'      => 400,
         ];
+        try {
+            $id = Crypt::decrypt($id);
+            $data = $this->mainRepository->find($id);
+            if(!$data){
+                $result['code'] = 404;
+                $result['message'] = __('content.not_found');
+            } else {
+                $result['code'] = 200;
+                $result['message'] = __('content.ok');
+                $result['data'] = $data;
+            }
+        } catch (DecryptException $e) {
+            if(config('app.debug') == true){
+                $result['message'] = $e->getMessage();
+            } else {
+                $result['message'] = __('content.payload_invalid');
+            }
+        } catch (\Throwable $th) {
+            if(config('app.debug') == true){
+                $result['message'] = $th->getMessage();
+            } else {
+                $result['message'] = __('content.something_error');
+            }
+        }
         return $result;
     }
 
@@ -80,20 +100,62 @@ class BaseService extends CoreService
 
     /**
      * Create an item
-     * @param array|mixed $data
-     * @return void
+     * @param array $data
+     * @return array
      */
+    // public function create(FormRequest $formRequest)
+    // {
+    //     DB::beginTransaction();
+    //     $result = [
+    //         'success'   => false,
+    //         'code'      => 400,
+    //         'message'   => __('content.something_error'),
+    //     ];
+    //     try {
+    //         $data = $formRequest->all();
+    //         $store = $this->mainRepository->create($data);
+    //         if($store){
+    //             DB::commit();
+    //             $result['success'] = true;
+    //             $result['code'] = 201;
+    //             $result['data'] = $data;
+    //             $result['message'] = __('content.ok');
+    //         } else {
+    //             DB::rollback();
+    //             $result['code'] = 500;
+    //         }
+    //     }  catch (\Throwable $th) {
+    //         DB::rollback();
+    //         if(config('app.debug') == true){
+    //             $result['message'] = $th->getMessage();
+    //         } else {
+    //             $result['message'] = __('content.something_error');
+    //         }
+    //     }
+    //     return $result;
+    // }
     public function create($data)
     {
+        DB::beginTransaction();
         $result = [
             'success'   => false,
             'code'      => 400,
+            'message'   => __('content.something_error'),
         ];
         try {
-            $result['success'] = true;
-            $result['code'] = 200;
-            $result['data'] = $this->mainRepository->create($data);
+            $store = $this->mainRepository->create($data);
+            if($store){
+                DB::commit();
+                $result['success'] = true;
+                $result['code'] = 201;
+                $result['data'] = $data;
+                $result['message'] = __('content.ok');
+            } else {
+                DB::rollback();
+                $result['code'] = 500;
+            }
         }  catch (\Throwable $th) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $th->getMessage();
             } else {
@@ -106,27 +168,78 @@ class BaseService extends CoreService
     /**
      * Update a model
      * @param int|mixed $id
-     * @param array|mixed $data
-     * @return void
+     * @param array $data
+     * @return array
      */
-    public function update($id, array $data)
+    // public function update($id, FormRequest $formRequest)
+    // {
+    //     DB::beginTransaction();
+    //     $result = [
+    //         'success'   => false,
+    //         'code'      => 400,
+    //         'message'   => __('content.something_error'),
+    //     ];
+    //     try {
+    //         $data = $formRequest->all();
+    //         $id  = Crypt::decrypt($id);
+    //         $update = $this->mainRepository->update($id, $data);
+    //         if($update){
+    //             DB::commit();
+    //             $result['success'] = true;
+    //             $result['code'] = 200;
+    //             $result['data'] = $data;
+    //             $result['message'] = __('content.ok');
+    //         } else {
+    //             DB::rollback();
+    //             $result['code'] = 500;
+    //         }
+    //     } catch (DecryptException $e) {
+    //         DB::rollback();
+    //         if(config('app.debug') == true){
+    //             $result['message'] = $e->getMessage();
+    //         } else {
+    //             $result['message'] = __('content.payload_invalid');
+    //         }
+    //     } catch (\Throwable $th) {
+    //         DB::rollback();
+    //         if(config('app.debug') == true){
+    //             $result['message'] = $th->getMessage();
+    //         } else {
+    //             $result['message'] = __('content.something_error');
+    //         }
+    //     }
+    //     return $result;
+    // }
+    public function update($id, $data)
     {
+        DB::beginTransaction();
         $result = [
             'success'   => false,
             'code'      => 400,
+            'message'   => __('content.something_error'),
         ];
         try {
             $id  = Crypt::decrypt($id);
-            $result['success'] = true;
-            $result['code'] = 200;
-            $result['data'] = $this->mainRepository->update($id, $data);
+            $update = $this->mainRepository->update($id, $data);
+            if($update){
+                DB::commit();
+                $result['success'] = true;
+                $result['code'] = 200;
+                $result['data'] = $data;
+                $result['message'] = __('content.ok');
+            } else {
+                DB::rollback();
+                $result['code'] = 500;
+            }
         } catch (DecryptException $e) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $e->getMessage();
             } else {
                 $result['message'] = __('content.payload_invalid');
             }
         } catch (\Throwable $th) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $th->getMessage();
             } else {
@@ -139,10 +252,11 @@ class BaseService extends CoreService
     /**
      * Delete a model
      * @param int|Model $id
-     * @return void
+     * @return array
      */
     public function delete($id)
     {
+        DB::beginTransaction();
         $result = [
             'success'   => false,
             'code'      => 400,
@@ -152,13 +266,17 @@ class BaseService extends CoreService
             $result['success'] = true;
             $result['code'] = 200;
             $result['data'] = $this->mainRepository->delete($id);
+            $result['message'] = __('content.success_delete');
+            DB::commit();
         } catch (DecryptException $e) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $e->getMessage();
             } else {
                 $result['message'] = __('content.payload_invalid');
             }
         } catch (\Throwable $th) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $th->getMessage();
             } else {
@@ -171,10 +289,11 @@ class BaseService extends CoreService
     /**
      * multiple delete
      * @param array $id
-     * @return void
+     * @return array
      */
     public function destroy(array $id)
     {
+        DB::beginTransaction();
         $result = [
             'success'   => false,
             'code'      => 400,
@@ -187,13 +306,16 @@ class BaseService extends CoreService
             $result['success'] = true;
             $result['code'] = 200;
             $result['data'] = $this->mainRepository->destroy($decId);
+            DB::commit();
         } catch (DecryptException $e) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $e->getMessage();
             } else {
                 $result['message'] = __('content.payload_invalid');
             }
         } catch (\Throwable $th) {
+            DB::rollback();
             if(config('app.debug') == true){
                 $result['message'] = $th->getMessage();
             } else {

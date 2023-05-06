@@ -1,17 +1,18 @@
 let cls = "is-invalid", clsValidation = "invalid-validation", clsInvalidFeedback = "invalid-feedback", clsValidFeedback = "valid-feedback"
-function validation(data) {
+function validation(data, suffixEl = '') {
     if(data != null) {
         clearFeedback()
         $.each(data, (elId, v) => {
-            let el = $("#field-" + elId), msg = v[0], elName = $('[name="' + elId + '"]')
+            let el = $("#field-" + elId + suffixEl), msg = v[0], elName = $('[name="' + elId + '"]')
             if(el.length > 0) {
-                invalidFeedback(msg, elId)
+                invalidFeedback(msg, elId + suffixEl)
 
-                if(elName.length > 0) {
-                    $.each(elName, (k, i) => {
-                        $(i).addClass(cls)
-                    })
-                }
+                // if(elName.length > 0) {
+                //     $.each(elName, (k, i) => {
+                //         $(i).addClass(cls)
+                //     })
+                // }
+                el.addClass(cls)
             }
         })
     }
@@ -33,7 +34,6 @@ function clearValidation()
 
 function clearFeedback()
 {
-    $("." + clsInvalidFeedback).hide()
     $("." + clsValidFeedback).hide()
     $('.needs-validation').removeClass('was-validated')
 }

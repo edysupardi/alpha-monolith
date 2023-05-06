@@ -49,6 +49,6 @@ class BranchRepositoryImplement extends Eloquent implements BranchRepository{
             'provience' => function($q){
                 $q->select('id', 'name');
             }
-        ])->findByCompany($companyId)->get();
+        ])->findByCompany($companyId)->orderByUpdatedAt('desc')->get();
     }
 }

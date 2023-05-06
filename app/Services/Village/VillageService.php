@@ -3,9 +3,9 @@
 namespace App\Services\Village;
 
 use App\Http\Requests\RequestVillageAll;
-use LaravelEasyRepository\BaseService;
+use App\Services\InterfaceService;
 
-interface VillageService extends BaseService{
+interface VillageService extends InterfaceService{
 
     public function detail($id) : array;
     public function getAll(RequestVillageAll $request) : array;

@@ -32,7 +32,10 @@ Route::middleware('auth:sanctum')->group(function(){
             Route::get('/',                                                                     [CompanyController::class, 'my'])->name('.get');
             Route::put('/',                                                                     [CompanyController::class, 'updateMine'])->name('.update');
         });
-        Route::get('{copmany}',                                                                 [CompanyController::class, 'show'])->name('.detail');
+        Route::prefix('{copmany}')->group(function(){
+            Route::get('/',                                                                     [CompanyController::class, 'show'])->name('.detail');
+            // Route::get('branch',                                                                [BranchController::class, 'list'])->name('.branch');
+        });
         Route::post('store',                                                                    [CompanyController::class, 'store'])->name('.store');
         Route::prefix('update')->name('.update')->group(function(){
             Route::put('mine',                                                                  [CompanyController::class, 'updateMine'])->name('.mine');
@@ -41,16 +44,14 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::prefix('branch')->name('branch')->group(function(){
-        Route::prefix('my')->name('.my')->group(function(){
-            Route::get('/',                                                                     [BranchController::class, 'my'])->name('.get');
-            Route::put('/',                                                                     [BranchController::class, 'updateMine'])->name('.update');
+        Route::get('list',                                                                      [BranchController::class, 'my'])->name('.list');
+        Route::prefix('{branch}')->group(function(){
+            Route::put('/',                                                                     [BranchController::class, 'update'])->name('.update');
+            Route::get('/',                                                                     [BranchController::class, 'detail'])->name('.detail');
+            Route::delete('/',                                                                  [BranchController::class, 'delete'])->name('.delete');
         });
-        Route::get('{copmany}',                                                                 [BranchController::class, 'show'])->name('.detail');
         Route::post('store',                                                                    [BranchController::class, 'store'])->name('.store');
-        Route::prefix('update')->name('.update')->group(function(){
-            Route::put('mine',                                                                  [BranchController::class, 'updateMine'])->name('.mine');
-            Route::put('{branch}',                                                              [BranchController::class, 'update'])->name('.update');
-        });
+        // Route::put('{branch}',                                                                  [BranchController::class, 'update'])->name('.update');
     });
 
     Route::prefix('territory')->name('territory')->group(function(){

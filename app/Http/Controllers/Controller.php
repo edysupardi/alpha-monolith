@@ -28,7 +28,7 @@ class Controller extends BaseController
             return ResponseFormatter::error(__('content.attr_code_not_exists'), 404);
         }
         $code       = $result['code'];
-        $message    = $result['message'];
+        $message    = array_key_exists('message', $result) ? $result['message'] : (in_array($code, [200, 201]) ? __('content.ok') : __('content.something_error'));
         $data       = [];
 
         if(isset($result['data'])){

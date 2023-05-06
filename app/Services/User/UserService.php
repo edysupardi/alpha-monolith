@@ -2,9 +2,9 @@
 
 namespace App\Services\User;
 
-use LaravelEasyRepository\BaseService;
+use App\Services\InterfaceService;
 
-interface UserService extends BaseService{
+interface UserService extends InterfaceService{
 
     public function signin($email, $password): array;
     public function signout($request): array;

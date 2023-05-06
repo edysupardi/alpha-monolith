@@ -2,9 +2,9 @@
 
 namespace App\Services\Poly;
 
-use LaravelEasyRepository\BaseService;
+use App\Services\InterfaceService;
 
-interface PolyService extends BaseService{
+interface PolyService extends InterfaceService{
 
     // Write something awesome :)
 }

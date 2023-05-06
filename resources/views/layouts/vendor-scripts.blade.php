@@ -15,6 +15,14 @@
         unconfirm: "@lang('content.unconfirm')",
         unconfirm_cancel: "@lang('content.unconfirm_cancel')",
         validation_error: "@lang('content.validation_error')",
+        main: "@lang('content.main')",
+        button: {
+            add: "@lang('button.add')",
+            new: "@lang('button.new')",
+            edit: "@lang('button.edit')",
+            delete: "@lang('button.delete')",
+            add_new: "@lang('button.add_new')",
+        }
     }, timerLength = {
         swal: 1500
     }

@@ -3,12 +3,12 @@
 namespace App\Services\Village;
 
 use App\Http\Requests\RequestVillageAll;
-use LaravelEasyRepository\Service;
 use App\Repositories\Village\VillageRepository;
+use App\Services\BaseService;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 
-class VillageServiceImplement extends Service implements VillageService{
+class VillageServiceImplement extends BaseService implements VillageService{
 
      /**
      * don't change $this->mainRepository variable name

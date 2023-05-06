@@ -3,9 +3,9 @@
 namespace App\Services\District;
 
 use App\Http\Requests\RequestDistrictAll;
-use LaravelEasyRepository\BaseService;
+use App\Services\InterfaceService;
 
-interface DistrictService extends BaseService{
+interface DistrictService extends InterfaceService{
 
     public function detail($id) : array;
     public function getAll(RequestDistrictAll $request) : array;

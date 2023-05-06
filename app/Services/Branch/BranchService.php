@@ -2,9 +2,9 @@
 
 namespace App\Services\Branch;
 
-use LaravelEasyRepository\BaseService;
+use App\Services\InterfaceService;
 
-interface BranchService extends BaseService{
+interface BranchService extends InterfaceService{
 
     public function getById($encryptId): array;
     public function myBranchs(): array;

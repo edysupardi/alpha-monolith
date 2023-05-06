@@ -22,6 +22,7 @@ class Branch extends BaseModel
         'zip_code',
         'latitude',
         'longitude',
+        'is_main',
 
         'created_by',
         'updated_by',

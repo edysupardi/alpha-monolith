@@ -8,6 +8,9 @@ return [
     'validation_errors'             => 'validation errors', // don't change / or translate, because as tag
     'looks_good'                    => 'Looks good!',
 
+    'yes'                           => 'Yes',
+    'no'                            => 'No',
+
     'email'                         => 'Email',
     'enter_email'                   => 'Enter Email',
     'email_or_username'             => 'Email or Username',
@@ -53,4 +56,12 @@ return [
     'zip_code'                      => 'Zip Code',
     'enter_zip_code'                => 'Enter Zip Code',
     'invalid_zip_code'              => 'Please provide valid zip code',
+
+    'branch'                        => 'Branch',
+    'enter_branch'                  => 'Enter branch name',
+    'invalid_branch'                => 'Please enter branch name',
+
+    'main_branch'                   => 'Main Branch',
+    'enter_main_branch'             => 'Select main branch',
+    'invalid_main_branch'           => 'Please select main branch',
 ];

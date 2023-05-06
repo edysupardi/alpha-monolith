@@ -89,17 +89,27 @@ class CompanyServiceImplement extends BaseService implements CompanyService{
 
     public function customUpdate($encryptId, RequestCompany $request): array
     {
+        $result = [
+            'success'   => false,
+            'code'      => 400,
+        ];
         try {
             $companyId  = Crypt::decrypt($encryptId);
 
             return $this->serviceUpdate($companyId, $request);
         } catch (DecryptException $e) {
-            $result = [
-                'success'   => false,
-                'code'      => 400,
-                'message'   => __('content.payload_invalid'),
-            ];
+            if(config('app.debug') == true){
+                $result['message'] = $e->getMessage();
+            } else {
+                $result['message'] = __('content.payload_invalid');
+            }
             return $result;
+        } catch (\Throwable $th) {
+            if(config('app.debug') == true){
+                $result['message'] = $th->getMessage();
+            } else {
+                $result['message'] = __('content.something_error');
+            }
         }
     }
 

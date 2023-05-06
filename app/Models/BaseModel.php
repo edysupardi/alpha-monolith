@@ -66,4 +66,14 @@ class BaseModel extends Model
         }
         return $this->scopeByIds($ids);
     }
+
+    public function scopeOrderByUpdatedAt($q, $order = 'asc')
+    {
+        return $q->orderBy('updated_at', $order);
+    }
+
+    public function scopeOrderByCreatedAt($q, $order = 'asc')
+    {
+        return $q->orderBy('created_at', $order);
+    }
 }
