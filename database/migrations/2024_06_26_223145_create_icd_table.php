@@ -11,16 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('person_identity', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('icd', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->string('icd', 10)->primary();
             $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->on('company')->constrained()->cascadeOnDelete();
-            $table->bigInteger('person_id', false)->nullable()->index()->on('person')->constrained()->cascadeOnDelete();
-            $table->string('identity_number', 50)->nullable();
-            $table->integer('identity_type_id', false)->nullable()->index()->on('identity_type')->constrained()->cascadeOnDelete();
-            $table->string('identity_photo', 150)->nullable();
+            $table->string('parent_id')->nullable();
+            $table->string('name', 255)->nullable();
+            $table->string('group', 50)->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
+        });
+
+        Schema::table('icd', function (Blueprint $table) {
+            $table->foreign('parent_id')->references(['icd'])->on('icd')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('person_identity');
+        Schema::dropIfExists('icd');
     }
 };

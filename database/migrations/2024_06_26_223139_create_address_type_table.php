@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('division_loan_duration', function (Blueprint $table) {
+        Schema::create('address_type', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id')->nullable()->index('division_loan_duration_index_1');
-            $table->integer('branch_id')->nullable()->index('division_loan_duration_index_2');
-            $table->integer('division_unit_id')->nullable()->index('division_loan_duration_index_3');
-            $table->integer('max_duration')->nullable()->comment('satuan dalam jam');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->on('company')->constrained()->cascadeOnDelete();
+            $table->string('name', 50)->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('division_loan_duration');
+        Schema::dropIfExists('address_type');
     }
 };

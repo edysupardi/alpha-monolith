@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('identity_type', function (Blueprint $table) {
+        Schema::create('branch', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id')->nullable()->index('company_id')->comment('ID dari perusahaan/PT/CV');
-            $table->string('name', 255)->nullable();
+            $table->integer('company_id', false)->nullable()->index()->on('company')->constrained()->cascadeOnDelete();;
+            $table->string('name', 255)->nullable()->comment('name of branch');
+            $table->string('phone', 30)->nullable()->comment('can be same with phone of PT/CV');
+            $table->text('address')->nullable()->comment('can be same with phone of PT/CV');
             $table->boolean('status')->nullable()->default(true)->comment('0:inactive, 1:active');
+            $table->boolean('main_branch')->nullable()->default(false)->comment('0:not main, 1:is main');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('identity_type');
+        Schema::dropIfExists('branch');
     }
 };

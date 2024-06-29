@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('examination_diagnosis', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->integer('company_id')->nullable()->index('examination_diagnosis_index_9')->comment('ID dari perusahaan/PT/CV');
-            $table->bigInteger('examination_id')->nullable()->index('examination_diagnosis_index_10');
-            $table->bigInteger('icd_id')->nullable()->index('icd_id');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->on('company')->constrained()->cascadeOnDelete();
+            $table->bigInteger('examination_id', false)->nullable()->index()->on('examination')->constrained()->cascadeOnDelete();
+            $table->string('icd')->nullable()->index()->on('icd')->constrained()->cascadeOnDelete();
             $table->timestamp('created_at')->nullable();
         });
     }

@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emergency_contact_type', function (Blueprint $table) {
+        Schema::create('division_unit', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id')->nullable()->index('company_id')->comment('ID dari perusahaan/PT/CV');
+            $table->integer('company_id', false)->nullable()->index()->on('company')->constrained()->cascadeOnDelete();
+            $table->integer('branch_id', false)->nullable()->index()->on('branch')->constrained()->cascadeOnDelete();
+            $table->integer('parent_id', false)->nullable()->index()->on('division_unit')->constrained()->cascadeOnDelete();
             $table->string('name', 255)->nullable();
+            $table->enum('is_can_loan_rm_file', ['yes', 'no'])->nullable()->default('no')->comment('status apakah divisi/unit tersebut boleh pinjam rm');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emergency_contact_type');
+        Schema::dropIfExists('division_unit');
     }
 };

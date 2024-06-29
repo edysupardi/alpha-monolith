@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('branch_polygon', function (Blueprint $table) {
+        Schema::create('region', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('branch_id')->nullable()->index('branch_id');
-            $table->double('latitude')->nullable()->comment('lat dari posisi kantor per branch');
-            $table->double('longitude')->nullable()->comment('lng dari posisi kantor per branch');
+            $table->integer('company_id')->nullable()->index()->comment('ID dari perusahaan/PT/CV')->on('company')->constrained()->cascadeOnDelete();
+            $table->string('name', 50)->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('branch_polygon');
+        Schema::dropIfExists('region');
     }
 };
