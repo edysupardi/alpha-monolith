@@ -196,7 +196,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // spatie role & permission
-        Spatie\Permission\PermissionServiceProvider::class
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 

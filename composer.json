@@ -9,11 +9,9 @@
         "guzzlehttp/guzzle": "^7.8.1",
         "illuminate/support": "^11.13.0",
         "laravel/framework": "^11.0",
-        "laravel/sanctum": "^4.0.2",
+        "laravel/passport": "*",
         "laravel/tinker": "^2.9.0",
-        "laravel/ui": "^4.5.2",
-        "spatie/laravel-permission": "^6.9",
-        "yaza/laravel-repository-service": "^5.0"
+        "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13.5",

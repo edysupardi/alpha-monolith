@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 Route::get('login',                                                                             [LoginController::class, 'index'])->name('login');
 Route::post('signin',                                                                           [LoginController::class, 'signin'])->name('signin');
 Route::get('tes',                                                                               function(){
-    echo Hash::make('admin', ['rounds'=>13]);
+    echo Hash::make('admin');
 });
 
 Route::middleware('auth:sanctum')->group(function(){

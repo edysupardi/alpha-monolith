@@ -15,7 +15,6 @@ class ResponseFormatter
     {
         $code = 200;
         $response = [
-            'success' => true,
             'message' => $message,
         ];
 
@@ -37,7 +36,6 @@ class ResponseFormatter
     public static function error($message = null, $code = 400, $data = null)
     {
         $response = [
-            'success' => false,
             'message' => $message,
         ];
         if(!empty($data))
@@ -51,7 +49,7 @@ class ResponseFormatter
     public static function datatable($request, $collection = []){
         $draw            = $request->draw ?? null;
         if(!is_array($collection))
-            return $this->error(null, 'data must be array');
+            return self::error(null, 'data must be array');
         $data            = array_key_exists('data', $collection) ? $collection['data'] : [];
         $recordsTotal    = array_key_exists('records_total', $collection) ? $collection['records_total'] : 0;
         $recordsFiltered = array_key_exists('records_filtered', $collection) ? $collection['records_filtered'] : 0;
@@ -64,8 +62,6 @@ class ResponseFormatter
             'data'             => $data,
             'records_filtered' => $recordsFiltered,
             'records_total'    => $recordsTotal,
-            'success'          => true,
-            'message'          => 'ok',
         ];
         if(!empty($draw))
             $response['draw'] = $draw;
