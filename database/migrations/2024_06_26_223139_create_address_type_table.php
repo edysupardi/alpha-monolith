@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('address_type', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
             $table->string('name', 50)->nullable();
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

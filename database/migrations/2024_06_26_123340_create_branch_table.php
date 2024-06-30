@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('address')->nullable()->comment('can be same with phone of PT/CV');
             $table->boolean('status')->nullable()->default(true)->comment('0:inactive, 1:active');
             $table->boolean('main_branch')->nullable()->default(false)->comment('0:not main, 1:is main');
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('emergency_contact', function (Blueprint $table) {
-            $table->bigInteger('person_id', false)->nullable()->index();
-            $table->bigInteger('contact_id', false)->nullable()->index();
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
-            $table->integer('emergency_contact_type_id', false)->nullable()->index();
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->bigInteger('person_id', false)->index();
+            $table->bigInteger('contact_id', false)->index();
+            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('emergency_contact_type_id', false)->index();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

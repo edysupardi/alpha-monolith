@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name', 255)->nullable()->comment('name of PT/CV');
             $table->string('phone', 30)->nullable()->comment('phone of PT/CV');
             $table->text('address')->nullable()->comment('address of PT/CV');
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
     }

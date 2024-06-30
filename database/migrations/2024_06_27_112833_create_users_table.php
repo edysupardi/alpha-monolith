@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('username')->comment('unique username for same of company ID');
             $table->string('password');
             $table->enum('status', ['active', 'inactive'])->nullable()->default('active');
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

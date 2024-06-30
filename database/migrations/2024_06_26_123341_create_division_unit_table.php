@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('division_unit', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->nullable()->index();
-            $table->integer('branch_id', false)->nullable()->index();
+            $table->integer('company_id', false)->index();
+            $table->integer('branch_id', false)->index();
             $table->integer('parent_id', false)->nullable()->index();
             $table->string('name', 255)->nullable();
             $table->enum('is_can_loan_rm_file', ['yes', 'no'])->nullable()->default('no')->comment('status apakah divisi/unit tersebut boleh pinjam rm');
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

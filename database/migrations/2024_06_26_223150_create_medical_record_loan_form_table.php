@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('medical_record_list_form', function (Blueprint $table) {
-            $table->bigInteger('loan_id', false)->nullable()->index();
-            $table->integer('category_id', false)->nullable()->index();
-            $table->integer('company_id', false)->nullable()->index();
-            $table->integer('branch_id', false)->nullable()->index();
-            $table->bigInteger('patient_id', false)->nullable()->index();
+            $table->bigInteger('loan_id', false)->index();
+            $table->integer('category_id', false)->index();
+            $table->integer('company_id', false)->index();
+            $table->integer('branch_id', false)->index();
+            $table->bigInteger('patient_id', false)->index();
         });
 
         Schema::table('medical_record_list_form', function (Blueprint $table) {

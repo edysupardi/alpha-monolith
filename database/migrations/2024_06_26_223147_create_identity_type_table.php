@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('identity_type', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
-            $table->string('name', 255)->nullable();
-            $table->boolean('status')->nullable()->default(true)->comment('0:inactive, 1:active');
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
+            $table->string('name', 255);
+            $table->boolean('status')->default(true)->comment('0:inactive, 1:active');
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

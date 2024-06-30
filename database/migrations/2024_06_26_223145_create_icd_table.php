@@ -14,17 +14,18 @@ return new class extends Migration
         Schema::create('icd', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->string('icd', 10)->primary();
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
+            $table->integer('company_id', false)->index();
             $table->string('parent_id')->nullable();
-            $table->string('name', 255)->nullable();
+            $table->string('name', 255);
             $table->string('group', 50)->nullable();
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 
         Schema::table('icd', function (Blueprint $table) {
             $table->foreign('parent_id')->references(['icd'])->on('icd')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('company_id')->references('id')->on('company')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('person_identity', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
-            $table->bigInteger('person_id', false)->nullable()->index();
-            $table->string('identity_number', 50)->nullable();
-            $table->integer('identity_type_id', false)->nullable()->index();
+            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
+            $table->bigInteger('person_id', false)->index();
+            $table->string('identity_number', 50);
+            $table->integer('identity_type_id', false)->index();
             $table->string('identity_photo', 150)->nullable();
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 

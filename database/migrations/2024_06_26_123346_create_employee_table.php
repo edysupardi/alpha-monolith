@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('employee', function (Blueprint $table) {
             $table->bigInteger('id', true)->primary();
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
             $table->integer('branch_id', false)->nullable()->index()->comment('ID cabang dari si perusahaan');
             $table->integer('division_unit_id', false)->nullable()->comment('ID divisi/unit/instalasi dari si cabang perusahaan');
-            $table->bigInteger('person_id', false)->nullable()->index()->comment('ID dari orang nya');
+            $table->bigInteger('person_id', false)->index()->comment('ID dari orang nya');
             $table->string('employee_number', 50)->nullable()->comment('Nomor Induk Karyawan/NIK');
             $table->string('phone', 30)->nullable()->comment('no hp, optional');
             $table->text('address')->nullable();
             $table->string('email', 150)->nullable()->comment('optional');
-            $table->string('username', 150)->nullable()->comment('bisa menggunakan email jika tidak punya username');
-            $table->string('password', 200)->nullable()->comment('encryption bcrypt');
+            $table->string('username', 150)->comment('bisa menggunakan email jika tidak punya username');
+            $table->string('password', 200)->comment('encryption bcrypt');
             $table->boolean('status')->nullable()->default(true)->comment('0:inactive, 1:active');
-            $table->dateTime('created_at')->nullable()->useCurrent();
-            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
 
