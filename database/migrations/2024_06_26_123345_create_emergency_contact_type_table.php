@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('emergency_contact_type', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
             $table->string('name', 255)->nullable();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
+        });
+
+        Schema::table('emergency_contact_type', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

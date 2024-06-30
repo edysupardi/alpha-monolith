@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('work_present', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
-            $table->integer('branch_id', false)->nullable()->index()->comment('ID cabang dari si perusahaan')->references('id')->on('branch')->constrained()->cascadeOnDelete();
-            $table->bigInteger('employee_id', false)->nullable()->index()->comment('ID employee dari si perusahaan')->references('id')->on('employee')->constrained()->cascadeOnDelete();
-            $table->bigInteger('schedule_id', false)->nullable()->index()->comment('ID jadwal kerja')->references('id')->on('schedule')->constrained()->cascadeOnDelete();
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('branch_id', false)->nullable()->index()->comment('ID cabang dari si perusahaan');
+            $table->bigInteger('employee_id', false)->nullable()->index()->comment('ID employee dari si perusahaan');
+            $table->bigInteger('schedule_id', false)->nullable()->index()->comment('ID jadwal kerja');
             $table->dateTime('clockin_time')->nullable();
             $table->double('clockin_lat')->nullable()->comment('bisa jadi tidak perlu save latitude nya');
             $table->double('clockin_lng')->nullable()->comment('bisa jadi tidak perlu save longitude nya');
@@ -28,6 +28,13 @@ return new class extends Migration
             $table->boolean('is_late')->nullable()->default(false)->comment('0:normal, 1:is late');
             $table->double('late_duration')->nullable()->default(0)->comment('satuan dalam detik');
             $table->string('late_measurement', 10)->nullable()->comment('bentuk string dari late duration');
+        });
+
+        Schema::table('work_present', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('employee_id')->references('id')->on('employee')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('schedule_id')->references('id')->on('work_schedule')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

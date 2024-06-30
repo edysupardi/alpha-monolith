@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('branch_polygon', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('branch_id', false)->nullable()->index()->constrained()->cascadeOnDelete();;
+            $table->integer('branch_id', false)->nullable()->index();
             $table->double('latitude')->nullable()->comment('lat dari posisi kantor per branch');
             $table->double('longitude')->nullable()->comment('lng dari posisi kantor per branch');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
+        });
+
+        Schema::table('branch_polygon', function (Blueprint $table) {
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

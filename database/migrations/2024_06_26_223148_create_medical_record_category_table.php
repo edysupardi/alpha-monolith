@@ -19,6 +19,10 @@ return new class extends Migration
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
+
+        Schema::table('medical_record_category', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+        });
     }
 
     /**
