@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('work_schedule', function (Blueprint $table) {
             $table->bigIncrements('id', true);
-            $table->integer('company_id')->nullable()->index()->comment('ID dari perusahaan/PT/CV')->on('company')->constrained()->cascadeOnDelete();
-            $table->integer('branch_id')->nullable()->index()->comment('ID cabang dari si perusahaan')->on('branch')->constrained()->cascadeOnDelete();
-            $table->integer('employee_id')->nullable()->index()->comment('ID employee dari si perusahaan')->on('employee')->constrained()->cascadeOnDelete();
+            $table->integer('company_id')->nullable()->index()->comment('ID dari perusahaan/PT/CV')->references('id')->on('company')->constrained()->cascadeOnDelete();
+            $table->integer('branch_id')->nullable()->index()->comment('ID cabang dari si perusahaan')->references('id')->on('branch')->constrained()->cascadeOnDelete();
+            $table->integer('employee_id')->nullable()->index()->comment('ID employee dari si perusahaan')->references('id')->on('employee')->constrained()->cascadeOnDelete();
             $table->date('schedule_date')->nullable();
             $table->boolean('is_shifting')->nullable()->default(false)->comment('0:normal, 1:is shifting');
             $table->string('shifting_type', 50)->nullable();

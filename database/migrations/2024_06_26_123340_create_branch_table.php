@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('branch', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->nullable()->index()->on('company')->constrained()->cascadeOnDelete();;
+            $table->integer('company_id', false)->index();
             $table->string('name', 255)->nullable()->comment('name of branch');
             $table->string('phone', 30)->nullable()->comment('can be same with phone of PT/CV');
             $table->text('address')->nullable()->comment('can be same with phone of PT/CV');
@@ -22,6 +22,10 @@ return new class extends Migration
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
+        });
+
+        Schema::table('branch', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

@@ -12,11 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('medical_record_list_form', function (Blueprint $table) {
-            $table->bigInteger('loan_id', false)->nullable()->index()->on('medical_record_loan')->constrained()->cascadeOnDelete();
-            $table->integer('category_id', false)->nullable()->index()->on('medical_record_category')->constrained()->cascadeOnDelete();
-            $table->integer('company_id', false)->nullable()->index()->on('company')->constrained()->cascadeOnDelete();
-            $table->integer('branch_id', false)->nullable()->index()->on('branch')->constrained()->cascadeOnDelete();
-            $table->bigInteger('patient_id', false)->nullable()->index()->on('patient')->constrained()->cascadeOnDelete();
+            $table->bigInteger('loan_id', false)->nullable()->index();
+            $table->integer('category_id', false)->nullable()->index();
+            $table->integer('company_id', false)->nullable()->index();
+            $table->integer('branch_id', false)->nullable()->index();
+            $table->bigInteger('patient_id', false)->nullable()->index();
+        });
+
+        Schema::table('medical_record_list_form', function (Blueprint $table) {
+            $table->foreign('loan_id')->references('id')->on('medical_record_loan')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('category_id')->references('id')->on('medical_record_category')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('patient_id')->references('id')->on('patient')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
