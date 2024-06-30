@@ -27,6 +27,7 @@ return new class extends Migration
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             //$table->engine('InnoDB');
             $table->bigIncrements('id'); // permission id
+            $table->integer('company_id', false)->index();
             $table->string('name');       // For MyISAM use string('name', 225); // (or 166 for InnoDB with Redundant/Compact row format)
             $table->string('guard_name'); // For MyISAM use string('guard_name', 25);
             $table->timestamps();
@@ -34,9 +35,14 @@ return new class extends Migration
             $table->unique(['name', 'guard_name']);
         });
 
+        Schema::table($tableNames['permissions'], function (Blueprint $table){
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+        });
+
         Schema::create($tableNames['roles'], function (Blueprint $table) use ($teams, $columnNames) {
             //$table->engine('InnoDB');
             $table->bigIncrements('id'); // role id
+            $table->integer('company_id', false)->index();
             if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
@@ -49,6 +55,10 @@ return new class extends Migration
             } else {
                 $table->unique(['name', 'guard_name']);
             }
+        });
+
+        Schema::table($tableNames['roles'], function (Blueprint $table){
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $pivotPermission, $teams) {
