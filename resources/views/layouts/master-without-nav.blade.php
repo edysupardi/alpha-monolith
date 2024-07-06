@@ -1,21 +1,33 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg"
+    data-sidebar-image="none" data-preloader="disable">
 
-    <head>
-        <meta charset="utf-8" />
-        <title> @yield('title') | Alpha</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="author" content="Alpha Medika"/>
-        <meta name="description" content="Aplikasi Medis Terintegrasi, Simple, dan Modis"/>
-        <link rel="shortcut icon" href="{{ URL::asset('assets/images/company/alpha.ico')}}">
-        @include('layouts.head-css')
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <title> @yield('title') | Hybrix - Laravel 10 Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Hybrix Laravel Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+     <meta name="keywords" content="hybrix,hybrix laravel,admin,dashboard,vite,livewire,livewire admin,laravel vite">
+     
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.ico') }}">
 
-    @yield('body')
+    <!-- include head css -->
+    @include('layouts.head-css')
+
+    @livewireStyles
+</head>
+
+<body>
 
     @yield('content')
 
+    <!-- vendor-scripts -->
     @include('layouts.vendor-scripts')
-    </body>
+
+    @livewireScripts
+</body>
+
 </html>
+

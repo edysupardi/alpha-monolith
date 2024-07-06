@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\Hash;
 
 // Auth::routes();
 
+Route::get('/',                                                                                 [LoginController::class, 'index'])->name('default');
 Route::get('login',                                                                             [LoginController::class, 'index'])->name('login');
-Route::post('signin',                                                                           [LoginController::class, 'signin'])->name('signin');
-Route::get('tes',                                                                               function(){
-    echo Hash::make('admin');
-});
 
-Route::middleware('auth:sanctum')->group(function(){
-    Route::get('/',                                                                             [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware('auth:api')->group(function(){
+    Route::get('dashboard',                                                                     [DashboardController::class, 'index'])->name('dashboard');
 });

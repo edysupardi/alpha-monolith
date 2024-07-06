@@ -1,31 +1,76 @@
 @extends('layouts.master-without-nav')
-
 @section('title')
-@lang('title.login')
+@lang('translation.signin')
 @endsection
+@section('content')
 
-@section('body')
+<section class="auth-page-wrapper py-5 position-relative d-flex align-items-center justify-content-center min-vh-100 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div class="col-lg-5">
+                                <div class="card auth-card bg-primary h-100 border-0 shadow-none p-sm-3 overflow-hidden mb-0">
+                                    <div class="card-body p-4 d-flex justify-content-between flex-column">
+                                        <div class="auth-image mb-3">
+                                            {{-- <img src="{{ URL::asset('build/images/logo-light-full.png') }}" alt="" height="26" /> --}}
+                                            <div class="text-white"><img src="{{ URL::asset('assets/images/company/alpha-light.png') }}" alt="" height="26"/> Alpha</div>
+                                            <img src="{{ URL::asset('build/images/effect-pattern/auth-effect-2.png') }}" alt="" class="auth-effect-2" />
+                                            <img src="{{ URL::asset('build/images/effect-pattern/auth-effect.png') }}" alt="" class="auth-effect" />
+                                            <img src="{{ URL::asset('build/images/effect-pattern/auth-effect.png') }}" alt="" class="auth-effect-3" />
+                                        </div>
 
-<body class="auth-body-bg">
-@endsection
+                                        <div class="text-center text-white">
+                                            <p class="mb-0">&copy;
+                                                <script>
+                                                    document.write(new Date().getFullYear())
+                                                </script> Copyright
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-    @section('content')
+                            <div class="col-lg-7">
+                                <div class="card mb-0 border-0 shadow-none">
+                                    <div class="card-body px-0 p-sm-5 m-lg-4">
+                                        <div class="text-center mt-2">
+                                            <h5 class="text-primary fs-20">Welcome Back !</h5>
+                                            <p class="text-muted">Sign in to continue your smooth experience.</p>
+                                        </div>
+                                        <div class="p-2 mt-5">
+                                            <form action="{{ route('login')}}" method="post">
+                                                @csrf
 
-    <div>
-        <div class="container-fluid p-0">
-            <div class="row g-0">
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'admin@themesbrand.com') }}" id="username" name="email" placeholder="Enter username">
+                                                    @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
 
-                <div class="col-xl-9">
-                    <div class="auth-full-bg pt-lg-5 p-4">
-                        <div class="w-100">
-                            <div class="bg-overlay"></div>
-                            <div class="d-flex h-100 flex-column">
-                                <div class="p-4 mt-auto">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-7">
-                                            <div class="text-center">
-                                                <h4 class="mb-3"><i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span class="text-primary">Alpha</span> Medika</h4>
-                                            </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+                                                    <div class="position-relative auth-pass-inputgroup mb-3">
+                                                        <input type="password" class="form-control password-input pe-5 @error('password') is-invalid @enderror" name="password" placeholder="Enter password" id="password-input" value="12345678">
+                                                        <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                        @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-4">
+                                                    <button class="btn btn-primary w-100" type="submit">Sign In</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -33,81 +78,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- end col -->
-
-                <div class="col-xl-3">
-                    <div class="auth-full-page-content p-md-5 p-4">
-                        <div class="w-100">
-
-                            <div class="d-flex flex-column h-100">
-                                <div class="mb-4 mb-md-5">
-                                    <a href="javascript:;" class="d-block auth-logo">
-                                        <img src="{{ URL::asset('/assets/images/company/alpha-dark.png') }}" alt="" height="28" class="auth-logo-dark">
-                                        <img src="{{ URL::asset('/assets/images/company/alpha-light.png') }}" alt="" height="28" class="auth-logo-light">
-                                        Alpha
-                                    </a>
-                                </div>
-                                <div class="my-auto">
-                                    <div>
-                                        <h5 class="text-primary">@lang('content.welcome_back') !</h5>
-                                        <p class="text-muted">@lang('content.signin')</p>
-                                    </div>
-
-                                    <div class="mt-4">
-                                        <form class="form-horizontal" method="POST" id="login-form">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <label for="username" class="form-label">@lang('field.enter_email')</label>
-                                                <input name="email" type="email" class="form-control" id="email" placeholder="@lang('field.enter_email')" autocomplete="email" autofocus>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <div class="float-end">
-                                                    @if (Route::has('password.request'))
-                                                    <a href="{{ route('password.request') }}" class="text-muted">@lang('content.forgot_password')?</a>
-                                                    @endif
-                                                </div>
-                                                <label class="form-label">@lang('field.password')</label>
-                                                <div class="input-group auth-pass-inputgroup" id="password">
-                                                    <input type="password" name="password" class="form-control" placeholder="@lang('field.enter_password')" aria-label="Password" aria-describedby="password-addon" autocomplete="password" autofocus>
-                                                    <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
-                                                </div>
-                                            </div>
-
-                                            <div class="mt-3 d-grid">
-                                                <button class="btn btn-primary waves-effect waves-light btn-loading" type="submit">@lang('button.login')</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 mt-md-5 text-center">
-                                    <p class="mb-0">&copy; {{ date('Y') }} Alpha. Crafted with <i class="mdi mdi-heart text-danger"></i></p>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container-fluid -->
     </div>
+</section>
 @endsection
-
 @section('script')
-    <script>
-        var signin = "{{ route('signin') }}", dashboard = "{{ route('dashboard') }}"
-        var lang = {
-            login : "@lang('button.login')",
-            loading : "@lang('content.loading')",
-            server_error: "@lang('content.server_error')",
-            information: "@lang('content.information')",
-            error: "@lang('content.error')",
-        }
-    </script>
-    <script src="{{ URL::asset('/assets/js/login/login-8172g489.js') }}"></script>
+<script src="{{ URL::asset('build/js/pages/password-addon.init.js') }}"></script>
+
 @endsection
