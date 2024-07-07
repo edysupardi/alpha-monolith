@@ -1,6 +1,7 @@
 <?php
 
 return [
-    'app'       => 'SISRM',
-    'login'     => 'Login',
+    'app'                                                                                   => 'SISRM',
+    'login'                                                                                 => 'Login',
+    'welcome_back'                                                                          => 'Welcome Back'
 ];

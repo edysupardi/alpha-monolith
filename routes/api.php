@@ -15,16 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
-    return response()->json([
-        'time' => time()
-    ], 200);
-});
+Route::name('api.')->group(function(){
+    Route::get('/', function(){
+        return response()->json([
+            'time' => time()
+        ], 200);
+    });
 
-Route::post('signin',                                           [SigninController::class, 'handle'])->name('signin');
+    Route::post('signin',                                           [SigninController::class, 'handle'])->name('signin');
 
-Route::middleware('auth:api')->group(function(){
-    Route::get('/user', function (Request $request) {
-        return $request->user();
+    Route::middleware('auth:api')->group(function(){
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
     });
 });
+

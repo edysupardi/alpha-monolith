@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 Route::get('/',                                                                                 [LoginController::class, 'index'])->name('default');
 Route::get('login',                                                                             [LoginController::class, 'index'])->name('login');
+Route::post('signin',                                                                           [LoginController::class, 'signin'])->name('signin');
 
-Route::middleware('auth:api')->group(function(){
+Route::middleware('session')->group(function(){
+    Route::get('signout',                                                                      [LoginController::class, 'signout'])->name('signout');
     Route::get('dashboard',                                                                     [DashboardController::class, 'index'])->name('dashboard');
 });

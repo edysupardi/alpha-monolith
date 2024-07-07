@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SigninRequest;
-use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 
 class SigninController extends Controller
@@ -16,16 +15,34 @@ class SigninController extends Controller
             $user           = Auth::user();
             $person         = $user->person;
             $key            = explode(":", config('app.key'))[1];
-            $message        = __('message.signin_succes');
+            $token          = $user->createToken($key)->accessToken;
+
+            $company        = $user->company;
+            $companyName    = $company->name;
+            $branch         = $user->branch;
+            $branchName     = $branch->name;
+            $name           = $person->full_name;
+            $userId         = $user->id; // employee id
+            $empId          = $person->id; // person id
+
             $data           = [
-                'token' => $user->createToken($key)->accessToken,
+                'token' => $token,
                 'person' => [
-                    'name'          => $person->full_name,
+                    'name'          => $name,
+                    'company'       => $companyName,
+                    'branch'        => $branchName,
+                ],
+                'id' => [
+                    'user'  => $userId,
+                    'emp'   => $empId,
                 ]
             ];
-            return ResponseFormatter::success($data, $message);
+
+            // return ResponseFormatter::success($data, $message);
+            return ['success' => true, 'data' => $data];
         } else {
-            return ResponseFormatter::error(__('auth.failed'), 404);
+            // return ResponseFormatter::error(__('auth.failed'), 404);
+            return ['success' => false, 'message' => __('auth.failed')];
         }
     }
 }

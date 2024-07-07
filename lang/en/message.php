@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'signin_succes'                                             => 'Success',
+    'signin_succes'                                                                         => 'Success',
 ];

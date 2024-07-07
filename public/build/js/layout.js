@@ -1,12 +1,3 @@
-/*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Version: 1.1.0
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: Layout Js File
-*/
-
 (function () {
 
     'use strict';
@@ -38,7 +29,7 @@ File: Layout Js File
             isLayoutAttributes['data-topbar'] = sessionStorage.getItem('data-topbar');
             isLayoutAttributes['data-preloader'] = sessionStorage.getItem('data-preloader');
             isLayoutAttributes['data-body-image'] = sessionStorage.getItem('data-body-image');
-            
+
             Object.keys(isLayoutAttributes).forEach(function (x) {
                 if (isLayoutAttributes[x] && isLayoutAttributes[x]) {
                     document.documentElement.setAttribute(x, isLayoutAttributes[x]);

@@ -1,15 +1,14 @@
 <?php
 
 return [
-    'server_error'      => 'Internal server error',
+    'server_error'                                                                          => 'Internal server error',
     // form
-    'loading'           => 'loading...',
+    'loading'                                                                               => 'loading...',
+    'invalid_captch'                                                                        => 'Captcha Invalid',
 
     // login page
-    'welcome_back'      => 'Welcome Back',
-    'signin'            => 'Sign in to continue',
-    'forgot_password'   => 'Forgot Password',
-    'information'       => 'Information',
-    'error'             => 'Error',
-    'notification'      => 'Notification',
+    'signin'                                                                                => 'Sign in to continue your smooth experience',
+    'information'                                                                           => 'Information',
+    'error'                                                                                 => 'Error',
+    'notification'                                                                          => 'Notification',
 ];
