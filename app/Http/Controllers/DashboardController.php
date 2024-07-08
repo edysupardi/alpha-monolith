@@ -8,8 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        echo 'dashboard: ';
-        echo Session::get('token');
-        // dd(session()->all());
+        return view('index');
     }
 }

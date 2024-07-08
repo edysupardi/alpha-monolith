@@ -12,6 +12,16 @@ Route::get('login',                                                             
 Route::post('signin',                                                                           [LoginController::class, 'signin'])->name('signin');
 
 Route::middleware('session')->group(function(){
-    Route::get('signout',                                                                      [LoginController::class, 'signout'])->name('signout');
+    Route::get('logout',                                                                        [LoginController::class, 'signout'])->name('logout');
+    Route::get('signout',                                                                       [LoginController::class, 'signout'])->name('signout');
+
     Route::get('dashboard',                                                                     [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('outpatient',                                                                    [DashboardController::class, 'index'])->name('outpatient');
+    Route::get('klpcm',                                                                         [DashboardController::class, 'index'])->name('klpcm');
+
+    Route::prefix('report')->name('report.')->group(function(){
+        Route::get('klpcm',                                                                     [DashboardController::class, 'index'])->name('klpcm');
+        Route::get('outpatient',                                                                [DashboardController::class, 'index'])->name('outpatient');
+    });
 });

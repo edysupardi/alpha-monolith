@@ -17,6 +17,7 @@
     }
 </script>
 <script src="{{ URL::asset('pages/jquery/jquery.min.js') }}"></script>
+<script src="{{ URL::asset('build/js/layout.js') }}"></script>
 <script src="{{ URL::asset('build/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ URL::asset('pages/sweetalert2/sweetalert2.min.js') }}"></script>

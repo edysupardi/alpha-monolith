@@ -8,9 +8,9 @@
         @yield('title') -
      @endif @lang('title.app')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Hybrix Laravel Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <meta name="keywords" content="hybrix,hybrix laravel,admin,dashboard,vite,livewire,livewire admin,laravel vite">
+    <meta content="Aplikasi pencatatan rekam medis" name="description" />
+    <meta content="Alpha" name="author" />
+    <meta name="keywords" content="alpha,rm,rekam medis,rekam medik">
     <link rel="shortcut icon" href="{{ URL::asset('favicon.ico') }}">
     @include('layouts.head-css')
 </head>
