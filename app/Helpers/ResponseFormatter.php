@@ -7,15 +7,16 @@ namespace App\Helpers;
  */
 class ResponseFormatter
 {
-
+    public static $successRetrieve = 200;
+    public static $successCreate = 201;
+    public static $successDelete = 204;
     /**
      * Give success response.
      */
-    public static function success($data = null, $message = 'ok')
+    public static function success($data = null, $message = 'ok!', $code = 200)
     {
-        $code = 200;
         $response = [
-            'message' => $message,
+            'message' => empty($message) ? 'ok!' : $message,
         ];
 
         if(isset($data['queries'])){
@@ -27,7 +28,7 @@ class ResponseFormatter
             $response['data'] = $data;
         }
 
-        return response()->json($response, $code);
+        return response()->json($response, empty($code) ? self::$successCreate : $code);
     }
 
     /**

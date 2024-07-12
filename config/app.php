@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'UTC', // as default timezone
 
     /*
     |--------------------------------------------------------------------------
@@ -199,6 +199,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         Laravel\Passport\PassportServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 

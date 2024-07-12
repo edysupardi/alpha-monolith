@@ -3,17 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Branch extends Model
 {
+    use SoftDeletes;
+
     protected $table = "branch";
-    protected $fillabel = [
-        'company_id',
-        'name',
-        'phone',
-        'address',
-        'status',
-        'main_branch',
+    protected $fillabel = [ 'company_id', 'name', 'phone', 'address', 'status', 'main_branch', 'created_at', 'updated_at', 'deleted_at'];
+
+    protected $casts = [
+	    'created_at'            => 'datetime:Y-m-d H:i',
+	    'updated_at'            => 'datetime:Y-m-d H:i',
+	    'deleted_at'            => 'datetime:Y-m-d H:i',
     ];
 
     const STATUS_ACTIVE = 1;
