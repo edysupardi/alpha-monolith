@@ -7,9 +7,11 @@ namespace App\Helpers;
  */
 class ResponseFormatter
 {
-    public static $successRetrieve = 200;
-    public static $successCreate = 201;
-    public static $successDelete = 204;
+    public static $successRetrieve      = 200;
+    public static $successCreate        = 201;
+    public static $successDelete        = 204;
+    public static $errorNotFound        = 404;
+    public static $errorUnauthorized    = 401;
     /**
      * Give success response.
      */

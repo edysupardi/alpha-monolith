@@ -45,4 +45,9 @@ class Branch extends Model
     {
         return $q->where('company_id', $d);
     }
+
+    function scopeFilterNotById($q, $d)
+    {
+        return $q->where('id', '!=', $d);
+    }
 }

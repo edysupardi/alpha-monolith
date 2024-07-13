@@ -38,7 +38,7 @@ class CompanyController extends Controller
 
             return ResponseFormatter::success([
                 'name' => $company->name,
-            ], null, ResponseFormatter::$successCreate);
+            ], __('message.insert_success'), ResponseFormatter::$successCreate);
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->defaultCatch($th);
@@ -66,7 +66,7 @@ class CompanyController extends Controller
 
             return ResponseFormatter::success([
                 'name' => $company->name,
-            ], null, ResponseFormatter::$successCreate);
+            ], __('message.update_success'), ResponseFormatter::$successCreate);
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->defaultCatch($th);
@@ -80,7 +80,7 @@ class CompanyController extends Controller
             $company->delete();
             DB::commit();
 
-            return ResponseFormatter::success(null, null, ResponseFormatter::$successDelete);
+            return ResponseFormatter::success(null, __('message.delete_success'), ResponseFormatter::$successDelete);
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->defaultCatch($th);
@@ -94,7 +94,7 @@ class CompanyController extends Controller
             $company->forceDelete();
             DB::commit();
 
-            return ResponseFormatter::success(null, null, ResponseFormatter::$successDelete);
+            return ResponseFormatter::success(null, __('message.delete_success'), ResponseFormatter::$successDelete);
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->defaultCatch($th);

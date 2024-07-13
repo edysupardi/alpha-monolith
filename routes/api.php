@@ -37,6 +37,7 @@ Route::name('api.')->group(function(){
         });
 
         Route::prefix('branch')->name('branch.')->group(function(){
+            Route::get('datatable',                                 [BranchController::class, 'datatable'])->name('datatable');
             Route::prefix('{branch}')->group(function(){
                 Route::get('/',                                     [BranchController::class, 'detail'])->name('detail');
                 Route::put('/',                                     [BranchController::class, 'update'])->name('update');
