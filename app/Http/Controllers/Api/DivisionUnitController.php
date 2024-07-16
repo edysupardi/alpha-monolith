@@ -4,51 +4,52 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BranchRequest;
-use App\Models\Branch;
+use App\Http\Requests\DivisionUnitRequest;
+use App\Models\DivisionUnit;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\{Auth, DB};
 use Yajra\DataTables\Facades\DataTables;
 
-class BranchController extends Controller
+class DivisionUnitController extends Controller
 {
     function datatable()
     {
         $user = Auth::user();
-        $data = Branch::query()->select('id', 'name', 'phone', 'address', 'main_branch', 'status')
+        $data = DivisionUnit::query()->select('id', 'name', 'is_can_loan_rm_file')
+        ->with(['parent' => function($q){
+            $q->select('id', 'name');
+        }])
         ->filterByCompany($user->company_id);
 
-        return DataTables::of($data)->addIndexColumn()->toJson();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('can_loan', function(DivisionUnit $d){
+                return $d->is_can_loan_rm_file;
+            })
+            ->removeColumn('is_can_loan_rm_file')
+            ->toJson();
     }
 
-    function store(BranchRequest $request)
+    function store(DivisionUnitRequest $request)
     {
         DB::beginTransaction();
         try {
             $user = Auth::user();
             $date = Carbon::now()->timezone(config('app.timezone'));
 
-            $branch                 = new Branch();
-            $branch->company_id     = $user->company_id;
-            $branch->name           = $request->name;
-            $branch->phone          = $request->phone;
-            $branch->address        = $request->address;
-            $branch->status         = Branch::STATUS_ACTIVE;
-            $branch->main_branch    = $request->is_main;
-            $branch->created_at     = $date;
-            $branch->updated_at     = $date;
-            $branch->save();
-
-            if($request->is_main == Branch::IS_MAIN){ // jika request yg baru sudah menjadi main branch, maka yg lain harus di keluarkan dari main branch
-                $newId = $branch->id;
-                Branch::filterNotById($newId)->update(['main_branch' => Branch::IS_NOT_MAIN]);
-            }
+            $unit                       = new DivisionUnit();
+            $unit->company_id           = $user->company_id;
+            $unit->parent_id            = $request->parent;
+            $unit->name                 = $request->name;
+            $unit->is_can_loan_rm_file  = $request->can_loan;
+            $unit->created_at           = $date;
+            $unit->updated_at           = $date;
+            $unit->save();
 
             DB::commit();
 
             return ResponseFormatter::success([
-                'name' => $branch->name,
+                'name' => $unit->name,
             ], null, ResponseFormatter::$successCreate);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -56,19 +57,20 @@ class BranchController extends Controller
         }
     }
 
-    function detail(Branch $branch)
+    function detail(DivisionUnit $divisionUnit)
     {
         $user = Auth::user();
-        if($user->company_id != $branch->company_id){
+        if($user->company_id != $divisionUnit->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
-        return ResponseFormatter::success($branch->makeHidden(['id', 'created_at', 'updated_at', 'deleted_at', 'company_id']));
+        $divisionUnit->can_loan = $divisionUnit->is_can_loan_rm_file;
+        return ResponseFormatter::success($divisionUnit->makeHidden(['id', 'created_at', 'updated_at', 'deleted_at', 'company_id', 'is_can_loan_rm_file']));
     }
 
-    function update(BranchRequest $request, Branch $branch)
+    function update(DivisionUnitRequest $request, DivisionUnit $divisionUnit)
     {
         $user = Auth::user();
-        if($user->company_id != $branch->company_id){
+        if($user->company_id != $divisionUnit->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
@@ -76,18 +78,16 @@ class BranchController extends Controller
         try {
             $date = Carbon::now()->timezone(config('app.timezone'));
 
-            $branch->name           = $request->name;
-            $branch->phone          = $request->phone;
-            $branch->address        = $request->address;
-            $branch->status         = $request->status;
-            $branch->main_branch    = $request->is_main;
-            $branch->updated_at     = $date;
-            $branch->save();
+            $divisionUnit->parent_id            = $request->parent;
+            $divisionUnit->name                 = $request->name;
+            $divisionUnit->is_can_loan_rm_file  = $request->can_loan;
+            $divisionUnit->updated_at           = $date;
+            $divisionUnit->save();
 
             DB::commit();
 
             return ResponseFormatter::success([
-                'name' => $branch->name,
+                'name' => $divisionUnit->name,
             ], null, ResponseFormatter::$successCreate);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -95,16 +95,16 @@ class BranchController extends Controller
         }
     }
 
-    function delete(Branch $branch)
+    function delete(DivisionUnit $divisionUnit)
     {
         $user = Auth::user();
-        if($user->company_id != $branch->company_id){
+        if($user->company_id != $divisionUnit->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
         DB::beginTransaction();
         try {
-            $branch->delete();
+            $divisionUnit->delete();
             DB::commit();
 
             return ResponseFormatter::success(null, null, ResponseFormatter::$successDelete);
@@ -114,16 +114,16 @@ class BranchController extends Controller
         }
     }
 
-    function destroy(Branch $branch)
+    function destroy(DivisionUnit $divisionUnit)
     {
         $user = Auth::user();
-        if($user->company_id != $branch->company_id){
+        if($user->company_id != $divisionUnit->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
         DB::beginTransaction();
         try {
-            $branch->forceDelete();
+            $divisionUnit->forceDelete();
             DB::commit();
 
             return ResponseFormatter::success(null, null, ResponseFormatter::$successDelete);
