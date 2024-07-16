@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\{BranchController, CompanyController, DivisionUnitController, SigninController};
+use App\Http\Controllers\Api\{AddressTypeController, BranchController, CompanyController, DivisionUnitController, SigninController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +56,17 @@ Route::name('api.')->group(function(){
                 Route::delete('destroy',                            [DivisionUnitController::class, 'destroy'])->name('destroy');
             });
             Route::post('/',                                        [DivisionUnitController::class, 'store'])->name('store');
+        });
+
+        Route::prefix('address_type')->name('address_type.')->group(function(){
+            Route::get('datatable',                                 [AddressTypeController::class, 'datatable'])->name('datatable');
+            Route::prefix('{address_type}')->group(function(){
+                Route::get('/',                                     [AddressTypeController::class, 'detail'])->name('detail');
+                Route::put('/',                                     [AddressTypeController::class, 'update'])->name('update');
+                Route::delete('/',                                  [AddressTypeController::class, 'delete'])->name('delete');
+                Route::delete('destroy',                            [AddressTypeController::class, 'destroy'])->name('destroy');
+            });
+            Route::post('/',                                        [AddressTypeController::class, 'store'])->name('store');
         });
     });
 });
