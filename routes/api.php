@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\{AddressTypeController, BranchController, CompanyController, DivisionUnitController, IdentityTypeController, RegionController, SigninController};
+use App\Http\Controllers\Api\{AddressTypeController, BranchController, CompanyController, DivisionUnitController, IcdController, IdentityTypeController, RegionController, SigninController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -87,6 +87,16 @@ Route::name('api.')->group(function(){
                 Route::delete('destroy',                            [RegionController::class, 'destroy'])->name('destroy');
             });
             Route::post('/',                                        [RegionController::class, 'store'])->name('store');
+        });
+        Route::prefix('icd')->name('icd.')->group(function(){
+            Route::get('datatable',                                 [IcdController::class, 'datatable'])->name('datatable');
+            Route::prefix('{icd}')->group(function(){
+                Route::get('/',                                     [IcdController::class, 'detail'])->name('detail');
+                Route::put('/',                                     [IcdController::class, 'update'])->name('update');
+                Route::delete('/',                                  [IcdController::class, 'delete'])->name('delete');
+                Route::delete('destroy',                            [IcdController::class, 'destroy'])->name('destroy');
+            });
+            Route::post('/',                                        [IcdController::class, 'store'])->name('store');
         });
     });
 });
