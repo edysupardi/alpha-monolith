@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\{AddressTypeController, BranchController, CompanyController, DivisionUnitController, IcdController, IdentityTypeController, RegionController, SigninController};
+use App\Http\Controllers\EmergencyContactTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -97,6 +98,17 @@ Route::name('api.')->group(function(){
                 Route::delete('destroy',                            [IcdController::class, 'destroy'])->name('destroy');
             });
             Route::post('/',                                        [IcdController::class, 'store'])->name('store');
+        });
+
+        Route::prefix('contact_type')->name('contact_type.')->group(function(){
+            Route::get('datatable',                                 [EmergencyContactTypeController::class, 'datatable'])->name('datatable');
+            Route::prefix('{emergency_contact_type}')->group(function(){
+                Route::get('/',                                     [EmergencyContactTypeController::class, 'detail'])->name('detail');
+                Route::put('/',                                     [EmergencyContactTypeController::class, 'update'])->name('update');
+                Route::delete('/',                                  [EmergencyContactTypeController::class, 'delete'])->name('delete');
+                Route::delete('destroy',                            [EmergencyContactTypeController::class, 'destroy'])->name('destroy');
+            });
+            Route::post('/',                                        [EmergencyContactTypeController::class, 'store'])->name('store');
         });
     });
 });
