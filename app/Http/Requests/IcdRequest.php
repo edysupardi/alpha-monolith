@@ -22,7 +22,12 @@ class IcdRequest extends BaseRequest
         ];
 
         if(strtolower($this->method()) == "post"){
-            $rules['icd'] = ['bail', 'required', 'unique:icd,icd', 'max:10'];
+            $rules['icd'] = ['bail', 'required', 'max:10',
+                Rule::unique('icd', 'icd')->where(function (Builder $query) {
+                    $user = Auth::user();
+                    return $query->where('company_id', $user->company_id);
+                })
+            ];
         }
 
         return $rules;

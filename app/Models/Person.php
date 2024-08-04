@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Person extends Model
 {
+    use SoftDeletes;
+
     protected $table = "person";
     protected $fillabel = [
         'company_id',
@@ -22,6 +25,13 @@ class Person extends Model
         'region_id',
         'marital_status',
         'last_education',
+    ];
+
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
+    const GENDER = [
+        self::GENDER_MALE,
+        self::GENDER_FEMALE,
     ];
 
     /**
