@@ -14,6 +14,15 @@ class PersonRequest extends BaseRequest
             'place_of_birth'    => ['nullable', 'max:50'],
             'date_of_birth'     => ['nullable', 'date'],
             'gender'            => ['required', Rule::in(Person::GENDER)],
+            'identity_type_id'  => ['required', Rule::exists('identity_type', 'id')],
+            'identity_number'   => ['required', 'max:50'],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'identity_type_id' => 'identity type'
         ];
     }
 }

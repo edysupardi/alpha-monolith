@@ -50,6 +50,16 @@ class Person extends Model
         return $this->belongsTo(Region::class, 'region_id');
     }
 
+    function identities()
+    {
+        return $this->hasMany(PersonIdentity::class, 'person_id');
+    }
+
+    function identity()
+    {
+        return $this->hasOne(PersonIdentity::class, 'person_id')->orderBy('updated_at', 'desc');
+    }
+
     /**
      * **************************************************
      *  S C O P E
