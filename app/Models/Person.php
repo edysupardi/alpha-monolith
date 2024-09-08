@@ -70,4 +70,14 @@ class Person extends Model
     {
         return $q->where('company_id', $d);
     }
+
+    function scopeFilterByName($q, $d)
+    {
+        return $q->where('full_name', $d);
+    }
+
+    function scopeFilterByDob($q, $d)
+    {
+        return $q->where('date_of_birth', $d);
+    }
 }

@@ -47,6 +47,8 @@ class Employee extends Authenticatable
     ];
 
     const TOKEN_TYPE = 'Bearer';
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 1;
 
     /**
      * **************************************************

@@ -12,6 +12,7 @@ class ResponseFormatter
     public static $successDelete        = 204;
     public static $errorNotFound        = 404;
     public static $errorUnauthorized    = 401;
+    public static $error                = 400;
     /**
      * Give success response.
      */

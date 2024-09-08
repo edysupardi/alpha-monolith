@@ -10,12 +10,12 @@ class PersonRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'full_name'         => ['required', 'max:255'],
-            'place_of_birth'    => ['nullable', 'max:50'],
-            'date_of_birth'     => ['nullable', 'date'],
-            'gender'            => ['required', Rule::in(Person::GENDER)],
-            'identity_type_id'  => ['required', Rule::exists('identity_type', 'id')],
-            'identity_number'   => ['required', 'max:50'],
+            'full_name'         => ['bail', 'required', 'max:255'],
+            'place_of_birth'    => ['bail', 'nullable', 'max:50'],
+            'date_of_birth'     => ['bail', 'nullable', 'date'],
+            'gender'            => ['bail', 'required', Rule::in(Person::GENDER)],
+            'identity_type_id'  => ['bail', 'required', Rule::exists('identity_type', 'id')],
+            'identity_number'   => ['bail', 'required', 'max:50'],
         ];
     }
 

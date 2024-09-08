@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\{AddressTypeController, BranchController, CompanyController, DivisionUnitController, IcdController, IdentityTypeController, RegionController, SigninController};
-use App\Http\Controllers\EmergencyContactTypeController;
-use App\Http\Controllers\MedicalRecordCategoryController;
-use App\Http\Controllers\PersonController;
+use App\Http\Controllers\Api\{AddressTypeController, BranchController, CompanyController, DivisionUnitController, IcdController, IdentityTypeController, RegionController, SigninController, EmergencyContactTypeController, EmployeeController, MedicalRecordCategoryController, PersonController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -133,6 +130,17 @@ Route::name('api.')->group(function(){
                 Route::delete('destroy',                            [PersonController::class, 'destroy'])->name('destroy');
             });
             Route::post('/',                                        [PersonController::class, 'store'])->name('store');
+        });
+
+        Route::prefix('employee')->name('employee.')->group(function(){
+            Route::get('datatable',                                 [EmployeeController::class, 'datatable'])->name('datatable');
+            Route::prefix('{employee}')->group(function(){
+                Route::get('/',                                     [EmployeeController::class, 'detail'])->name('detail');
+                Route::put('/',                                     [EmployeeController::class, 'update'])->name('update');
+                Route::delete('/',                                  [EmployeeController::class, 'delete'])->name('delete');
+                Route::delete('destroy',                            [EmployeeController::class, 'destroy'])->name('destroy');
+            });
+            Route::post('/',                                        [EmployeeController::class, 'store'])->name('store');
         });
     });
 });
