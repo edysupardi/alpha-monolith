@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('division_unit', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->index();
-            $table->integer('branch_id', false)->index();
-            $table->integer('parent_id', false)->nullable()->index();
+            $table->integer('company_id', false)->nullable()->index();
+            $table->integer('branch_id', false)->nullable()->index();
+            $table->integer('parent_id', false)->nullable()->nullable()->index();
             $table->string('name', 255)->nullable();
             $table->enum('is_can_loan_rm_file', ['yes', 'no'])->nullable()->default('no')->comment('status apakah divisi/unit tersebut boleh pinjam rm');
             $table->dateTime('created_at')->useCurrent();
@@ -24,9 +24,9 @@ return new class extends Migration
         });
 
         Schema::table('division_unit', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('parent_id')->references('id')->on('division_unit')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('parent_id')->references('id')->on('division_unit')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('division_loan_duration', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->index();
-            $table->integer('branch_id', false)->index();
+            $table->integer('company_id', false)->nullable()->index();
+            $table->integer('branch_id', false)->nullable()->index();
             $table->integer('division_unit_id', false)->nullable()->index();
             $table->integer('max_duration')->nullable()->comment('satuan dalam jam');
             $table->dateTime('created_at')->useCurrent();
@@ -23,9 +23,9 @@ return new class extends Migration
         });
 
         Schema::table('division_loan_duration', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('division_unit_id')->references('id')->on('division_unit')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('division_unit_id')->references('id')->on('division_unit')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

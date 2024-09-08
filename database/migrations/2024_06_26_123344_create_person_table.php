@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('person', function (Blueprint $table) {
             $table->bigInteger('id', true)->primary();
-            $table->integer('company_id', false)->index();
+            $table->integer('company_id', false)->nullable()->index();
             $table->string('first_name', 255)->nullable();
             $table->string('last_name', 255)->nullable();
             $table->text('full_name')->nullable()->comment('gabungan dari first name dan last name, atau lgsg di isi tanpa melihat first & last name');
@@ -33,8 +33,8 @@ return new class extends Migration
         });
 
         Schema::table('person', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('region_id')->references('id')->on('region')->constrained()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('region_id')->references('id')->on('region')->constrained()->nullOnDelete();
         });
     }
 

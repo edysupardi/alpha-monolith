@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('identity_type', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
             $table->string('name', 255);
             $table->boolean('status')->default(true)->comment('0:inactive, 1:active');
             $table->dateTime('created_at')->useCurrent();
@@ -22,7 +22,7 @@ return new class extends Migration
         });
 
         Schema::table('identity_type', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

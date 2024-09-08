@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('employee', function (Blueprint $table) {
             $table->bigInteger('id', true)->primary();
-            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
-            $table->integer('branch_id', false)->nullable()->index()->comment('ID cabang dari si perusahaan');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('branch_id', false)->nullable()->nullable()->index()->comment('ID cabang dari si perusahaan');
             $table->integer('division_unit_id', false)->nullable()->comment('ID divisi/unit/instalasi dari si cabang perusahaan');
-            $table->bigInteger('person_id', false)->index()->comment('ID dari orang nya');
+            $table->bigInteger('person_id', false)->nullable()->index()->comment('ID dari orang nya');
             $table->string('employee_number', 50)->nullable()->comment('Nomor Induk Karyawan/NIK');
             $table->string('phone', 30)->nullable()->comment('no hp, optional');
             $table->text('address')->nullable();
@@ -30,10 +30,10 @@ return new class extends Migration
         });
 
         Schema::table('employee', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('person_id')->references('id')->on('person')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('division_unit_id')->references('id')->on('division_unit')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('person_id')->references('id')->on('person')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('division_unit_id')->references('id')->on('division_unit')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

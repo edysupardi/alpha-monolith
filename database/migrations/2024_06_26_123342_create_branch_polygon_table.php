@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('branch_polygon', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('branch_id', false)->index();
+            $table->integer('branch_id', false)->nullable()->index();
             $table->double('latitude')->nullable()->comment('lat dari posisi kantor per branch');
             $table->double('longitude')->nullable()->comment('lng dari posisi kantor per branch');
             $table->dateTime('created_at')->useCurrent();
@@ -22,7 +22,7 @@ return new class extends Migration
         });
 
         Schema::table('branch_polygon', function (Blueprint $table) {
-            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

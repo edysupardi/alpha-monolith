@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('examination_diagnosis', function (Blueprint $table) {
-            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
             $table->bigInteger('examination_id', false)->nullable()->index();
             $table->string('icd')->nullable()->index();
             $table->timestamp('created_at')->nullable();
         });
 
         Schema::table('examination_diagnosis', function (Blueprint $table) {
-            $table->foreign('examination_id')->references('id')->on('examination')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('icd')->references('icd')->on('icd')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('examination_id')->references('id')->on('examination')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('icd')->references('icd')->on('icd')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

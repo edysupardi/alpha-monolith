@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('person_addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
-            $table->bigInteger('person_id', false)->index();
-            $table->integer('address_type_id', false)->index()->comment('bisa jadi alamat domisili, atau alamat ktp');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
+            $table->bigInteger('person_id', false)->nullable()->index();
+            $table->integer('address_type_id', false)->nullable()->index()->comment('bisa jadi alamat domisili, atau alamat ktp');
             $table->text('address')->nullable();
             $table->tinyInteger('rt')->nullable();
             $table->tinyInteger('rw')->nullable();
@@ -29,9 +29,9 @@ return new class extends Migration
         });
 
         Schema::table('person_addresses', function (Blueprint $table) {
-            $table->foreign('person_id')->references('id')->on('person')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('address_type_id')->references('id')->on('address_type')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('person_id')->references('id')->on('person')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('address_type_id')->references('id')->on('address_type')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

@@ -23,7 +23,7 @@ return new class extends Migration
     {
         Schema::table('division_unit', function (Blueprint $table) {
             $table->integer('branch_id', false)->index();
-            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 };

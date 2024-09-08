@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('work_schedule', function (Blueprint $table) {
             $table->bigInteger('id', true)->primary();
-            $table->integer('company_id', false)->index()->comment('ID dari perusahaan/PT/CV');
-            $table->integer('branch_id', false)->index()->comment('ID cabang dari si perusahaan');
+            $table->integer('company_id', false)->nullable()->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('branch_id', false)->nullable()->index()->comment('ID cabang dari si perusahaan');
             $table->bigInteger('employee_id', false)->nullable()->index()->comment('ID employee dari si perusahaan');
             $table->date('schedule_date');
             $table->boolean('is_shifting')->nullable()->default(false)->comment('0:normal, 1:is shifting');
@@ -25,9 +25,9 @@ return new class extends Migration
         });
 
         Schema::table('work_schedule', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('employee_id')->references('id')->on('employee')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('branch_id')->references('id')->on('branch')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('employee_id')->references('id')->on('employee')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

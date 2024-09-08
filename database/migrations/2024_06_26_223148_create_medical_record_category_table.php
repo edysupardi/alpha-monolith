@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('medical_record_category', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('company_id')->index()->comment('ID dari perusahaan/PT/CV');
+            $table->integer('company_id')->nullable()->index()->comment('ID dari perusahaan/PT/CV');
             $table->string('name', 255)->comment('list of rm form name category');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrentOnUpdate()->useCurrent();
@@ -21,7 +21,7 @@ return new class extends Migration
         });
 
         Schema::table('medical_record_category', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

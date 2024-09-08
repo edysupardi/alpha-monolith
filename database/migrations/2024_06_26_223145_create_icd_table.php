@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('icd', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->string('icd', 10)->primary();
-            $table->integer('company_id', false)->index();
-            $table->string('parent_id')->nullable();
+            $table->integer('company_id', false)->nullable()->index();
+            $table->string('parent_id')->nullable()->index();
             $table->string('name', 255);
             $table->string('group', 50)->nullable();
             $table->dateTime('created_at')->useCurrent();
@@ -24,8 +24,8 @@ return new class extends Migration
         });
 
         Schema::table('icd', function (Blueprint $table) {
-            $table->foreign('parent_id')->references(['icd'])->on('icd')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('company_id')->references('id')->on('company')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('parent_id')->references(['icd'])->on('icd')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('company_id')->references('id')->on('company')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 
