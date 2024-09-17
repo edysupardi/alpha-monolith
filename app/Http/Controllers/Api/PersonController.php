@@ -25,7 +25,28 @@ class PersonController extends Controller
     {
         DB::beginTransaction();
         try {
-            $person = $this->_store($request);
+            $user = Auth::user();
+            $date = Carbon::now()->timezone(config('app.timezone'));
+
+            $person                 = new Person();
+            $person->company_id     = $user->company_id;
+            $person->full_name      = $request->full_name;
+            $person->place_of_birth = $request->place_of_birth;
+            $person->date_of_birth  = $request->has('date_of_birth') ? date('Y-m-d', strtotime($request->date_of_birth)) : null;
+            $person->gender         = $request->gender;
+            $person->created_at     = $date;
+            $person->updated_at     = $date;
+            $person->save();
+
+            // save identity
+            $identity = new PersonIdentity();
+            $identity->company_id           = $user->company_id;
+            $identity->person_id            = $person->id;
+            $identity->identity_number      = $request->identity_number;
+            $identity->identity_type_id     = $request->identity_type_id;
+            $identity->created_at           = $date;
+            $identity->updated_at           = $date;
+            $identity->save();
 
             DB::commit();
 
@@ -36,33 +57,6 @@ class PersonController extends Controller
             DB::rollBack();
             return $this->defaultCatch($th);
         }
-    }
-
-    function _store(PersonRequest $request){
-        $user = Auth::user();
-        $date = Carbon::now()->timezone(config('app.timezone'));
-
-        $person                 = new Person();
-        $person->company_id     = $user->company_id;
-        $person->full_name      = $request->full_name;
-        $person->place_of_birth = $request->place_of_birth;
-        $person->date_of_birth  = $request->has('date_of_birth') ? date('Y-m-d', strtotime($request->date_of_birth)) : null;
-        $person->gender         = $request->gender;
-        $person->created_at     = $date;
-        $person->updated_at     = $date;
-        $person->save();
-
-        // save identity
-        $identity = new PersonIdentity();
-        $identity->company_id           = $user->company_id;
-        $identity->person_id            = $person->id;
-        $identity->identity_number      = $request->identity_number;
-        $identity->identity_type_id     = $request->identity_type_id;
-        $identity->created_at           = $date;
-        $identity->updated_at           = $date;
-        $identity->save();
-
-        return $person;
     }
 
     function detail(Person $person)
@@ -113,47 +107,20 @@ class PersonController extends Controller
             $person->updated_at     = $date;
             $person->save();
 
-            $identity = PersonIdentity::filterByPerson($person->id)->filterByIdentityType($request->identity_type_id)->filterByIdentityNumber($request->identity_number)->first();
-            // berarti tidak punya identity dengan id & identity number tersebut
+            $identity = PersonIdentity::filterByPerson($person->id)->filterByIdentityType($request->identity_type_id)->first();
+            // berarti tidak punya identity type id tersebut
             if(!$identity){
-                $new = true;
-                $identity = PersonIdentity::filterByPerson($person->id)->filterByIdentityType($request->identity_type_id)->first();
-                // punya identity dengan tipe tersebut, tapi beda number, berarti mau ganti number nya
-                if($identity){
-                    // update existing identity
-                    $identity->identity_number      = $request->identity_number;
-                    $identity->identity_type_id     = $request->identity_type_id;
-                    $identity->updated_at           = $date;
-                    $identity->save();
-                    $new = false;
-                }
-
-                $identity = PersonIdentity::filterByPerson($person->id)->filterByIdentityNumber($request->identity_number)->first();
-                // punya identity dengan number tersebut, tapi beda type, berarti mau ganti type nya
-                if($identity){
-                    // update existing identity
-                    $identity->identity_number      = $request->identity_number;
-                    $identity->identity_type_id     = $request->identity_type_id;
-                    $identity->updated_at           = $date;
-                    $identity->save();
-                    $new = false;
-                }
-
-                // buat baru
-                if($new){
-                    $identity = new PersonIdentity();
-                    $identity->company_id           = $user->company_id;
-                    $identity->person_id            = $person->id;
-                    $identity->identity_number      = $request->identity_number;
-                    $identity->identity_type_id     = $request->identity_type_id;
-                    $identity->created_at           = $date;
-                    $identity->updated_at           = $date;
-                    $identity->save();
-                }
+                $identity = new PersonIdentity();
+                $identity->company_id           = $user->company_id;
+                $identity->person_id            = $person->id;
+                $identity->identity_number      = $request->identity_number;
+                $identity->identity_type_id     = $request->identity_type_id;
+                $identity->created_at           = $date;
+                $identity->updated_at           = $date;
+                $identity->save();
             } else {
                 // update existing identity
                 $identity->identity_number      = $request->identity_number;
-                $identity->identity_type_id     = $request->identity_type_id;
                 $identity->updated_at           = $date;
                 $identity->save();
             }

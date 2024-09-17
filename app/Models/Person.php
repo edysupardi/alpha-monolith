@@ -60,6 +60,11 @@ class Person extends Model
         return $this->hasOne(PersonIdentity::class, 'person_id')->orderBy('updated_at', 'desc');
     }
 
+    function employee()
+    {
+        return $this->belongsTo(Employee::class, 'person_id');
+    }
+
     /**
      * **************************************************
      *  S C O P E

@@ -19,9 +19,23 @@ class EmployeeController extends Controller
     function datatable()
     {
         $user = Auth::user();
-        $data = Employee::query()->select('id', 'full_name', 'gender')->filterByCompany($user->company_id);
+        $data = Employee::query()->select('id', 'person_id', 'branch_id', 'division_unit_id')
+        ->with([
+            'person' => function($q){
+                $q->select('id', 'full_name', 'gender');
+            },
+            'branch' => function($q){
+                $q->select('id', 'name');
+            },
+            'divisionUnit' => function($q){
+                $q->select('id', 'name');
+            }
+        ])->filterByCompany($user->company_id);
 
-        return DataTables::of($data)->addIndexColumn()->toJson();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->removeColumn(['person_id', 'branch_id', 'division_unit_id', 'person.id', 'branch.id', 'division_unit.id'])
+            ->toJson();
     }
 
     function store(EmployeeRequest $request)
@@ -87,44 +101,63 @@ class EmployeeController extends Controller
     protected function findExistsPerson(EmployeeRequest $request, $companyId)
     {
         // find by name, date of birth and identity type + number
-        return Person::filterByCompany($companyId)->filterByName($request->full_name)->filterByDob($request->date_of_birth)->whereHas('identities', function($q) use ($request){
+        return Person::filterByCompany($companyId)->whereHas('identities', function($q) use ($request){
             $q->filterByIdentityNumber($request->identity_number);
         })->first();
     }
 
-    function detail(Employee $person)
+    function detail(Employee $employee)
     {
         $user = Auth::user();
-        if($user->company_id != $person->company_id){
+        if($user->company_id != $employee->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
-        $data = Employee::where('id', $person->id)->with([
-            'identity' => function($q){
-                $q->select('person_id', 'identity_number', 'identity_type_id')->with([
-                    'identityType' => function($q){
-                        $q->select('id', 'name');
+        $data = Employee::where('id', $employee->id)->with([
+            'person' => function($q){
+                $q->select('id', 'full_name', 'gender', 'place_of_birth', 'date_of_birth')->with([
+                    'identity' => function($q){
+                        $q->select('person_id', 'identity_number', 'identity_type_id')->with([
+                            'identityType' => function($q){
+                                $q->select('id', 'name');
+                            }
+                        ]);
                     }
                 ]);
+            },
+            'branch' => function($q){
+                $q->select('id', 'name');
+            },
+            'divisionUnit' => function($q){
+                $q->select('id', 'name');
             }
         ])
         ->first()
         ->makeHidden([
-            'id', 'created_at', 'updated_at', 'deleted_at', 'first_name', 'last_name', 'name_of_father', 'name_of_mother', 'languages', 'region_id', 'marital_status', 'last_education', 'gender', 'ethnic'
+            'id', 'company_id', 'person_id', 'branch_id', 'division_unit_id'
         ]);
 
-        if($data->identity){
-            $data->identity->makeHidden(['person_id', 'identity_type_id']);
-            if($data->identity->identityType)
-                $data->identity->identityType->makeHidden('id');
+        if($data->person){
+            $data->person->makeHidden(['id']);
+            if($data->person->identity){
+                $data->person->identity->makeHidden(['person_id', 'identity_type_id']);
+                if($data->person->identity->identityType)
+                    $data->person->identity->identityType->makeHidden('id');
+            }
+        }
+        if($data->branch){
+            $data->branch->makeHidden(['id']);
+        }
+        if($data->divisionUnit){
+            $data->divisionUnit->makeHidden(['id']);
         }
         return ResponseFormatter::success($data);
     }
 
-    function update(EmployeeRequest $request, Employee $person)
+    function update(EmployeeRequest $request, Employee $employee)
     {
         $user = Auth::user();
-        if($user->company_id != $person->company_id){
+        if($user->company_id != $employee->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
@@ -132,55 +165,36 @@ class EmployeeController extends Controller
         try {
             $date = Carbon::now()->timezone(config('app.timezone'));
 
+            $employee->branch_id        = $request->branch_id;
+            $employee->username         = $request->username;
+            if($request->has('password')){
+                $employee->password     = Hash::make($request->password);
+            }
+            $employee->updated_at       = $date;
+            $employee->save();
+
+            $person = $employee->person;
             $person->full_name      = $request->full_name;
             $person->place_of_birth = $request->place_of_birth;
+            $person->date_of_birth  = $request->has('date_of_birth') ? date('Y-m-d', strtotime($request->date_of_birth)) : null;
             $person->gender         = $request->gender;
-            if($request->has('date_of_birth'))
-                $person->date_of_birth  = date('Y-m-d', strtotime($request->date_of_birth));
             $person->updated_at     = $date;
             $person->save();
 
-            $identity = PersonIdentity::filterByEmployee($person->id)->filterByIdentityType($request->identity_type_id)->filterByIdentityNumber($request->identity_number)->first();
-            // berarti tidak punya identity dengan id & identity number tersebut
+            $identity = PersonIdentity::filterByPerson($employee->person_id)->filterByIdentityType($request->identity_type_id)->first();
+            // berarti tidak punya identity dengan type tersebut
             if(!$identity){
-                $new = true;
-                $identity = PersonIdentity::filterByEmployee($person->id)->filterByIdentityType($request->identity_type_id)->first();
-                // punya identity dengan tipe tersebut, tapi beda number, berarti mau ganti number nya
-                if($identity){
-                    // update existing identity
-                    $identity->identity_number      = $request->identity_number;
-                    $identity->identity_type_id     = $request->identity_type_id;
-                    $identity->updated_at           = $date;
-                    $identity->save();
-                    $new = false;
-                }
-
-                $identity = PersonIdentity::filterByEmployee($person->id)->filterByIdentityNumber($request->identity_number)->first();
-                // punya identity dengan number tersebut, tapi beda type, berarti mau ganti type nya
-                if($identity){
-                    // update existing identity
-                    $identity->identity_number      = $request->identity_number;
-                    $identity->identity_type_id     = $request->identity_type_id;
-                    $identity->updated_at           = $date;
-                    $identity->save();
-                    $new = false;
-                }
-
-                // buat baru
-                if($new){
-                    $identity = new PersonIdentity();
-                    $identity->company_id           = $user->company_id;
-                    $identity->person_id            = $person->id;
-                    $identity->identity_number      = $request->identity_number;
-                    $identity->identity_type_id     = $request->identity_type_id;
-                    $identity->created_at           = $date;
-                    $identity->updated_at           = $date;
-                    $identity->save();
-                }
+                $identity = new PersonIdentity();
+                $identity->company_id           = $employee->company_id;
+                $identity->person_id            = $employee->person_id;
+                $identity->identity_number      = $request->identity_number;
+                $identity->identity_type_id     = $request->identity_type_id;
+                $identity->created_at           = $date;
+                $identity->updated_at           = $date;
+                $identity->save();
             } else {
                 // update existing identity
                 $identity->identity_number      = $request->identity_number;
-                $identity->identity_type_id     = $request->identity_type_id;
                 $identity->updated_at           = $date;
                 $identity->save();
             }
@@ -188,7 +202,7 @@ class EmployeeController extends Controller
             DB::commit();
 
             return ResponseFormatter::success([
-                'full_name' => $person->full_name,
+                'full_name' => $employee->person->full_name,
             ], null, ResponseFormatter::$successCreate);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -196,16 +210,16 @@ class EmployeeController extends Controller
         }
     }
 
-    function delete(Employee $person)
+    function delete(Employee $employee)
     {
         $user = Auth::user();
-        if($user->company_id != $person->company_id){
+        if($user->company_id != $employee->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
         DB::beginTransaction();
         try {
-            $person->delete();
+            $employee->delete();
             DB::commit();
 
             return ResponseFormatter::success(null, null, ResponseFormatter::$successDelete);
@@ -215,16 +229,16 @@ class EmployeeController extends Controller
         }
     }
 
-    function destroy(Employee $person)
+    function destroy(Employee $employee)
     {
         $user = Auth::user();
-        if($user->company_id != $person->company_id){
+        if($user->company_id != $employee->company_id){
             return ResponseFormatter::error(__('message.unauthorized'), ResponseFormatter::$errorUnauthorized);
         }
 
         DB::beginTransaction();
         try {
-            $person->forceDelete();
+            $employee->forceDelete();
             DB::commit();
 
             return ResponseFormatter::success(null, null, ResponseFormatter::$successDelete);

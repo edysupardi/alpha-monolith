@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends Authenticatable
 {
-    use HasApiTokens, HasRoles, Notifiable;
+    use HasApiTokens, HasRoles, Notifiable, SoftDeletes;
 
     protected $table = "employee";
 
@@ -71,6 +72,11 @@ class Employee extends Authenticatable
         return $this->belongsTo(Person::class, 'person_id');
     }
 
+    function divisionUnit()
+    {
+        return $this->belongsTo(DivisionUnit::class, 'division_unit_id');
+    }
+
     /**
      * Validate the password of the user for the Passport password grant.
      */
@@ -88,5 +94,15 @@ class Employee extends Authenticatable
     function scopeFilterByUsername($q, $d)
     {
         return $q->where('username', $d);
+    }
+
+    function scopeFilterByCompany($q, $d)
+    {
+        return $q->where('company_id', $d);
+    }
+
+    function scopeFilterByPerson($q, $d)
+    {
+        return $q->where('person_id', $d);
     }
 }
