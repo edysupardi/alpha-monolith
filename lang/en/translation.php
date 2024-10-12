@@ -101,6 +101,7 @@ return [
     "two-step-verification"=>"Two Step Verification",
     "errors"=>"Errors",
     "404"=>"404",
+    "429"=>"429",
     "404-alt"=>"404 Alt",
     "404-basic"=>"404 Basic",
     "404-cover"=>"404 Cover",
@@ -110,6 +111,7 @@ return [
     "500"=>"500",
     "503"=>"503",
     "404-error"=>"404 Error",
+    "429-error"=>"429 Error",
     "500-error"=>"500 Error",
     "503-error" => "503 Error",
     "offline-page"=>"Offline Page",
@@ -242,7 +244,7 @@ return [
     "Apex_Line_Chart" => "Apex Line Chart",
     "Apex_Radar_Chart" => "Apex Radar Chart",
     "Apex_Polar_area_Chart" => "Apex Polar Area Chart",
-    
+
     "documentations" => "Documentation",
     "contact" => "Contact",
     "leaderboard" => "LeaderBoard",

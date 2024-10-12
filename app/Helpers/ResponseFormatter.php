@@ -13,6 +13,7 @@ class ResponseFormatter
     public static $errorNotFound        = 404;
     public static $errorUnauthorized    = 401;
     public static $error                = 400;
+    public static $toManyRequest        = 429;
     /**
      * Give success response.
      */

@@ -10,6 +10,7 @@ return [
     'phone_number_format'                                                                   => 'phone number format',
     'route_not_found'                                                                       => 'Your destination was not found',
     'unauthorized'                                                                          => 'you are not authorized',
+    'retry_after'                                                                           => 'You are making requests too frequently. Please wait before retrying.',
 
     // failed
     'insert_failed'                                                                         => 'Data failed to save',

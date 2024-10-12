@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('api.')->group(function(){
+Route::middleware('throttle:global')->name('api.')->group(function(){
     Route::get('/', function(){
         return response()->json([
             'time' => time()

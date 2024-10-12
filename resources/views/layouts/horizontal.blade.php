@@ -747,7 +747,7 @@
                                     <a href="pages-timeline" class="dropdown-item" key="t-timeline">@lang('translation.Timeline')</a>
                                     <a href="pages-faqs" class="dropdown-item" key="t-faqs">@lang('translation.FAQs')</a>
                                     <a href="pages-pricing" class="dropdown-item" key="t-pricing">@lang('translation.Pricing')</a>
-                                    <a href="pages-404" class="dropdown-item" key="t-error-404">@lang('translation.Error_404')</a>
+                                    <a href="pages-404" class="dropdown-item" key="t-error-404">@lang('translation.404-error')</a>
                                     <a href="pages-500" class="dropdown-item" key="t-error-500">@lang('translation.Error_500')</a>
                                 </div>
                             </div>
