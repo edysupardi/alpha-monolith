@@ -1,12 +1,15 @@
 <?php
 
 return [
-    'app'                                                                                   => 'SISRM',
+    'app'                                                                                   => 'Alpha',
     'login'                                                                                 => 'Login',
     'welcome_back'                                                                          => 'Welcome Back',
     'dashboard'                                                                             => 'Dashboard',
     'menu'                                                                                  => 'Menu',
     'outpatient'                                                                            => 'Outpatient',
+    'exit_form'                                                                             => 'Exit',
+    'entry_form'                                                                            => 'Entry',
+    'cancel_form'                                                                           => 'Cancel',
     'report'                                                                                => 'Report',
     'master'                                                                                => 'Master',
     'user'                                                                                  => 'User',
@@ -20,4 +23,12 @@ return [
     'person'                                                                                => 'Person',
     'icd'                                                                                   => 'ICD',
     'division_unit'                                                                         => 'Division Unit',
+    'master'                                                                                => 'Master',
+    'patient'                                                                               => 'Patient',
+    'division'                                                                              => 'Division',
+    'doctor'                                                                                => 'Doctor',
+    'name'                                                                                  => 'Name',
+    'guard_name'                                                                            => 'Guard Name',
+    'action'                                                                                => 'Action',
+    'count_member'                                                                          => 'Count Member',
 ];
