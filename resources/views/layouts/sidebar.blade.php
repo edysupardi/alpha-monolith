@@ -63,7 +63,7 @@
                     <a href="{{ route('report.klpcm') }}" class="nav-link menu-link"> <i class="bi bi-clipboard-pulse"></i> <span data-key="t-dashboard">@lang('title.patient')</span> </a>
                     <a href="{{ route('role.index') }}" class="nav-link menu-link"> <i class="bi bi-gear-wide-connected"></i> <span data-key="t-dashboard">@lang('title.role')</span> </a>
                     <a href="{{ route('permission.index') }}" class="nav-link menu-link"> <i class="bi bi-bounding-box"></i> <span data-key="t-dashboard">@lang('title.permission')</span> </a>
-                    <a href="{{ route('report.klpcm') }}" class="nav-link menu-link"> <i class="bi bi-person-fill-gear"></i> <span data-key="t-dashboard">@lang('title.employee')</span> </a>
+                    <a href="{{ route('employee.index') }}" class="nav-link menu-link"> <i class="bi bi-person-fill-gear"></i> <span data-key="t-dashboard">@lang('title.employee')</span> </a>
                 </li>
             </ul>
         </div>

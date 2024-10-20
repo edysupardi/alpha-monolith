@@ -11,10 +11,10 @@ if (document.querySelectorAll("[toast-list]") || document.querySelectorAll('[dat
 	/**
 	 *  global variables
 	 */
-	var navbarMenuHTML = document.querySelector(".navbar-menu").innerHTML;
-	var horizontalMenuSplit = 6; // after this number all horizontal menus will be moved in More menu options
-	var default_lang = "en"; // set Default Language
-	var language = localStorage.getItem("language");
+	// var navbarMenuHTML = document.querySelector(".navbar-menu").innerHTML;
+	// var horizontalMenuSplit = 6; // after this number all horizontal menus will be moved in More menu options
+	// var default_lang = "en"; // set Default Language
+	// var language = localStorage.getItem("language");
 
     function windowLoadContent() {
         window.addEventListener("resize", windowResizeHover);

@@ -82,7 +82,7 @@
 @section('script')
     <script>
         var url = {
-            signin:     "{{ route('signin') }}",
+            signin:     "{{ route('api.signin') }}",
             dashboard:  "{{ route('dashboard') }}"
         }
         lang.button.signin = "@lang('button.signin')"

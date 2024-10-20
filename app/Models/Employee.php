@@ -2,16 +2,22 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use DateTime;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Passport\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\NewAccessToken;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class Employee extends Authenticatable
 {
-    use HasApiTokens, HasRoles, Notifiable, SoftDeletes;
+    use HasRoles, Notifiable, SoftDeletes, HasApiTokens;
 
     protected $table = "employee";
 
@@ -83,6 +89,26 @@ class Employee extends Authenticatable
     public function validateForPassportPasswordGrant(string $password): bool
     {
         return Hash::check($password, $this->password);
+    }
+
+    // public function tokens()
+    // {
+    //     return $this->hasMany(PersonalAccessToken::class, 'tokenable_id');
+    // }
+
+    public function createToken(string $name, array $abilities = ['*'], DateTimeInterface $expiresAt = null)
+    {
+        if($expiresAt === null){
+            $expiresAt = Carbon::now()->addMinutes(config('session.lifetime'));
+        }
+        $token = $this->tokens()->create([
+            'name' => $name,
+            'token' => hash('sha256', $plainTextToken = Str::random(240)),
+            'abilities' => $abilities,
+            'expires_at' => $expiresAt,
+        ]);
+
+        return new NewAccessToken($token, $plainTextToken);
     }
 
     /**

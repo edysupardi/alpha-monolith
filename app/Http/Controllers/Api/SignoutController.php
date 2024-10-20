@@ -27,6 +27,7 @@ class SignoutController extends Controller
 
         // get token by user id
         $token = OauthAccessToken::filterByUserId($userId)->delete();
+        Auth::logout();
         return ['success' => true];
 
     }

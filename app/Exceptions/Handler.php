@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -44,8 +45,8 @@ class Handler extends ExceptionHandler
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if($request->wantsJson()){
                 return ResponseFormatter::error(__('message.route_not_found'), ResponseFormatter::$errorNotFound, null);
-            }
-            return view('pages-404');
+            } else
+                return new Response(view('pages-404'), 404);
         });
 
         // $this->renderable(function (ThrottleRequestsException $e, $request) {

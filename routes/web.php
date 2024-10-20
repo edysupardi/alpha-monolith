@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{DashboardController, OutpatientEntryController, PermissionController, RoleController, UserController};
+use App\Http\Controllers\{DashboardController, EmployeeController, OutpatientEntryController, PermissionController, RoleController, UserController};
 use App\Http\Controllers\Auth\{LoginController};
 
 Route::middleware('throttle:global')->group(function(){
@@ -38,6 +38,10 @@ Route::middleware('throttle:global')->group(function(){
 
         Route::prefix('permission')->name('permission.')->group(function(){
             Route::get('/',                                                                         [PermissionController::class, 'index'])->name('index')->middleware('can:view_permission');
+        });
+
+        Route::prefix('employee')->name('employee.')->group(function(){
+            Route::get('/',                                                                         [EmployeeController::class, 'index'])->name('index')->middleware('can:view_employee');
         });
     });
 });

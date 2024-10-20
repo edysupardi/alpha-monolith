@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,9 +17,13 @@ class SessionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('token')) {
-            return redirect()->route('login');
-        }
+        $user = Auth::user();
+        // echo $user->id;
+        echo '<pre>'.print_r(session()->all(), 1);
+        die();
+        // if (!session()->has('token')) {
+        //     return redirect()->route('login');
+        // }
         return $next($request);
     }
 }

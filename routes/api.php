@@ -24,7 +24,7 @@ Route::middleware('throttle:global')->name('api.')->group(function(){
 
     Route::post('signin',                                           [SigninController::class, 'handle'])->name('signin');
 
-    Route::middleware('auth:api')->group(function(){
+    Route::middleware('auth:sanctum')->group(function(){
         // Route::prefix('company')->name('company.')->group(function(){
         //     Route::get('datatable',                                 [CompanyController::class, 'datatable'])->name('datatable');
         //     Route::prefix('{company}')->group(function(){
